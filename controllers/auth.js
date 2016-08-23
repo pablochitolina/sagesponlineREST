@@ -4,11 +4,11 @@ var BasicStrategy = require('passport-http').BasicStrategy;
 var User = require('../models/user');
 
 passport.use(new BasicStrategy(
-  function(username, password, callback) {
-    User.findOne({ username: username }, function (err, user) {
+  function(email, password, callback) {
+    User.findOne({ email: email }, function (err, user) {
       if (err) { return callback(err); }
 
-      // No user found with that username
+      // No user found with that email
       if (!user) { return callback(null, false); }
 
       // Make sure the password is correct
