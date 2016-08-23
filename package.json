@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "main": "server.js",
   "dependencies": {
+    "bcrypt": "^0.8.7",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
     "express": "^4.1.1",
     "mongodb": "^2.2.7",
     "mongoose": "^4.5.9"
