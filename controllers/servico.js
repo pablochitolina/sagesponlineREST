@@ -51,11 +51,11 @@ exports.getServico = function(req, res) {
 // Create endpoint /api/servicos/:servico_id for PUT
 exports.putServico = function(req, res) {
   // Use the Servico model to find a specific servico
-  Servico.update({ iduser: req.user._id, _id: req.params.servico_id }, { status: req.body.status, thumb: req.body.thumb,foto: req.body.foto }, function(err, num, raw) {
+  Servico.update({ iduser: req.user._id, _id: req.params.servico_id }, { status: req.body.status, thumb: req.body.thumb,foto: req.body.foto }, function(err, servico) {
     if (err)
       return res.send(err);
 
-    res.json({ message: num + ' updated' });
+    res.json({ message: 'updated', servico: servico });
   });
 };
 
@@ -66,6 +66,6 @@ exports.deleteServico = function(req, res) {
     if (err)
       return res.send(err);
 
-    res.json({ message: 'Servico removed from the locker!' });
+    res.json({ message: 'deleted' });
   });
 };

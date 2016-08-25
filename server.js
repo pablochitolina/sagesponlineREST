@@ -38,14 +38,15 @@ router.route('/servicos/:servico_id')
 
 // Create endpoint handlers for /users
 router.route('/users')
-  .post(userController.postUsers)
-  .get(authController.isAuthenticated, userController.getUsers);
+  .post(userController.postUser)
+  .put(userController.putUser)
+  .get(userController.getUser);
 
 // Register all our routes with /api
 app.use('/api', router);
 
 // Start the server
 
-app.listen(8080, function(){
-  console.log("Node server listening on port 8080" )
+app.listen(3000, function(){
+  console.log("Node server listening on port 3000" )
 });
