@@ -46,6 +46,6 @@ app.use('/api', router);
 
 // Start the server
 
-app.listen(3000, function(){
-  console.log("Node server listening on port 3000" )
+app.listen(8080, function(){
+  console.log("Node server listening on port 8080" )
 });
