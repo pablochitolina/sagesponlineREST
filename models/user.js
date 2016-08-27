@@ -5,33 +5,42 @@ var uniqueValidator = require('mongoose-unique-validator');
 
 // Define our user schema
 var UserSchema = new mongoose.Schema({
-  email: { type: String, index: true, unique: true, required: true},
-  nome: { type: String, required: true},
-  sobrenome: { type: String, required: true},
-  senha: { type: String, required: true }
+  email: { type: String, index: true, unique: true, required: true },
+  nome: { type: String, required: true },
+  sobrenome: { type: String, required: true },
+  senha: { type: String, required: true },
+  ativo: { type: Boolean, default: false },
+  token: { type: String, default: null },
+  senhaTemp: { type: String, default: null }
 });
 
 // Execute before each user.save() call
-UserSchema.pre('save', function(callback) {
+UserSchema.pre('save', function (callback) {
   var user = this;
 
   // Break out if the senha hasn't changed
   if (!user.isModified('senha')) return callback();
-
-  // Password changed so we need to hash it
-  bcrypt.genSalt(5, function(err, salt) {
-    if (err) return callback(err);
-
-    bcrypt.hash(user.senha, salt, null, function(err, hash) {
-      if (err) return callback(err);
-      user.senha = hash;
-      callback();
-    });
+  
+  user.cript(user.senha, function (err, hash) {
+    if (err) { return callback(err); }
+    user.senha = hash;
+    callback();
   });
+
 });
 
-UserSchema.methods.verifyPassword = function(senha, cb) {
-  bcrypt.compare(senha, this.senha, function(err, isMatch) {
+UserSchema.methods.cript = function (senha, cb) {
+  bcrypt.genSalt(5, function (err, salt) {
+    if (err) return callback(err);
+    bcrypt.hash(senha, salt, null, function (err, hash) {
+      if (err) return callback(err);
+      cb(null, hash);
+    });
+  });
+};
+
+UserSchema.methods.verifyPassword = function (senha, cb) {
+  bcrypt.compare(senha, this.senha, function (err, isMatch) {
     if (err) return cb(err);
     cb(null, isMatch);
   });

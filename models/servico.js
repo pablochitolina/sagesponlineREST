@@ -11,6 +11,8 @@ var ServicoSchema   = new mongoose.Schema({
   desc: String,
   data: String,
   iduser: String,
+  cidade: String,
+  bairro: String,
   status: String
 });
 

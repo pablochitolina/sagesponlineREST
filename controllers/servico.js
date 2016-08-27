@@ -14,6 +14,8 @@ exports.postServicos = function (req, res) {
   servico.desc = req.body.desc;
   servico.data = req.body.data;
   servico.status = req.body.status;
+  servico.cidade = req.body.cidade;
+  servico.bairro = req.body.bairro;
   servico.iduser = req.user._id;
 
   // Save the servico and check for errors

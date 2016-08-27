@@ -36,11 +36,26 @@ router.route('/servicos/:servico_id')
   .put(authController.isAuthenticated, servicoController.putServico)
   .delete(authController.isAuthenticated, servicoController.deleteServico);
 
-// Create endpoint handlers for /users
-router.route('/users')
+// Create endpoint handlers for /user
+router.route('/user')
   .post(userController.postUser)
-  .put(userController.putUser)
-  .get(userController.getUser);
+  .put(authController.isAuthenticated, userController.putUser)
+  .get(authController.isAuthenticated, userController.getUser);
+
+// Ativar user
+router.route('/userAuth/:token')
+  .post(userController.postUserAuth);
+
+// Esqueceu a senha
+router.route('/forgotPass')
+  .get(userController.getForgotPass);
+
+// Esqueceu a senha
+router.route('/forgotPass/:token')
+  .post(userController.postForgotPass);
+
+router.route('/usersList')
+  .get(userController.getUsers);
 
 // Register all our routes with /api
 app.use('/api', router);
