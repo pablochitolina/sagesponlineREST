@@ -39,7 +39,7 @@ exports.postUser = function (req, res) {
         }
       });
 
-      res.json({ message: 'success', user: user });
+      res.json({ message: 'postUserSuccess', user: user });
     });
   });
 };
@@ -54,13 +54,13 @@ exports.putUser = function (req, res) {
     if (!user)
       return res.json({ message: 'nouser' });
 
-    user.email = req.body.email;
+    user.email = req.body.email;//apenas em DEV, PRD não muda email
     user.nome = req.body.nome;
     user.sobrenome = req.body.sobrenome;
     user.senha = req.body.senha;
     user.save();
 
-    res.json({ message: 'success', user: user });
+    res.json({ message: 'putUserSuccess', user: user });
 
   });
 
@@ -77,6 +77,12 @@ exports.getUser = function (req, res) {
       return res.json({ message: 'nouser' });
     if (!user.ativo)
       return res.json({ message: 'userinativo' })
+
+    if (user.senhaTemp != null) {
+      user.token = null;
+      user.senhaTemp = null;
+      user.save();
+    }
 
     return res.json({ message: 'success', user: user });
 
@@ -161,13 +167,13 @@ exports.postForgotPass = function (req, res) {
       return res.json({ message: 'notoken' });
 
     //user.cript(user.senhaTemp, function (err, hash) {
-      //if (err) { return callback(err); }
-      user.token = null;
-      user.senha = user.senhaTemp;
-      user.senhaTemp = null;
-      user.save();
-      
-      res.json({ message: 'success', user: user });
+    //if (err) { return callback(err); }
+    user.token = null;
+    user.senha = user.senhaTemp;
+    user.senhaTemp = null;
+    user.save();
+
+    res.json({ message: 'success', user: user });
     //});
   });
 };
