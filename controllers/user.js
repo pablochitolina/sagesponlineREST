@@ -39,7 +39,9 @@ exports.postUser = function (req, res) {
         }
       });
 
-      res.json({ message: 'postUserSuccess', user: user });
+      
+
+      res.json({ message: 'postUserSuccess'});
     });
   });
 };
