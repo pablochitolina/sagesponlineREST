@@ -50,15 +50,15 @@ router.route('/user')
 
 // Ativar user
 router.route('/userAuth/:token')
-  .post(userController.postUserAuth);
+  .get(userController.getUserAuth);
 
 // Esqueceu a senha
 router.route('/forgotPass')
   .get(userController.getForgotPass);
 
 // Esqueceu a senha
-router.route('/forgotPass/:token')
-  .post(userController.postForgotPass);
+router.route('/forgotPassAct/:token')
+  .get(userController.getForgotPassAct);
 
 router.route('/usersList')
   .get(userController.getUsers);
@@ -68,6 +68,6 @@ app.use('/api', router);
 
 // Start the server
 
-app.listen(3000, function(){
+app.listen(8080, function(){
   console.log("Node server listening on port 3000" )
 });

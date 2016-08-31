@@ -13,6 +13,8 @@ exports.postUser = function (req, res) {
     senha: req.body.senha
   });
 
+
+
   require('crypto').randomBytes(32, function (err, buffer) {
     if (err)
       return res.send(err);
@@ -62,7 +64,7 @@ exports.putUser = function (req, res) {
     user.senha = req.body.senha;
     user.save();
 
-    res.json({ message: 'putUserSuccess', user: user });
+    res.json({ message: 'putUserSuccess' });
 
   });
 
@@ -92,19 +94,19 @@ exports.getUser = function (req, res) {
 };
 
 //Ativa usuario
-exports.postUserAuth = function (req, res) {
+exports.getUserAuth = function (req, res) {
 
   User.findOne({ token: req.params.token }, function (err, user) {
     if (err)
       return res.send(err);
     if (!user)
-      return res.json({ message: 'notoken' });
+      return res.send('Token não encontrado');
 
     user.token = null;
     user.ativo = true;
     user.save();
 
-    res.json({ message: 'success', user: user });
+    return res.send('Usuário ativado com sucesso!');
 
   });
 
@@ -139,7 +141,7 @@ exports.getForgotPass = function (req, res) {
           from: "Sagesp Online <noreplay@sagesponline.com.br>", // sender address
           to: user.email, // list of receivers
           subject: "Olá " + user.nome, // Subject line
-          html: "<b>Sua nova senha temporária: " + user.senhaTemp + "</b><br/><a href='https://www.sagesponline.com.br/api/" + user.token + "'>Click aqui para ativar sua senha temporária</a>" // html body
+          html: "<b>Sua nova senha temporária: " + user.senhaTemp + "</b><br/><a href='https://www.sagesponline.com.br/api/forgotPassAct/" + user.token + "'>Click aqui para ativar sua senha temporária</a>" // html body
 
         }
 
@@ -152,7 +154,7 @@ exports.getForgotPass = function (req, res) {
 
         user.save();
 
-        res.json({ message: 'success', user: user });
+        res.json({ message: 'success' });
 
       });
     });
@@ -160,13 +162,13 @@ exports.getForgotPass = function (req, res) {
 };
 
 //ativa senha esquecida
-exports.postForgotPass = function (req, res) {
+exports.getForgotPassAct = function (req, res) {
 
   User.findOne({ token: req.params.token }, function (err, user) {
     if (err)
       return res.send(err);
     if (!user)
-      return res.json({ message: 'notoken' });
+      return res.send('Token não encontrado');
 
     //user.cript(user.senhaTemp, function (err, hash) {
     //if (err) { return callback(err); }
@@ -175,7 +177,7 @@ exports.postForgotPass = function (req, res) {
     user.senhaTemp = null;
     user.save();
 
-    res.json({ message: 'success', user: user });
+    res.send('Nova senha ativa');
     //});
   });
 };
