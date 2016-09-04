@@ -58,7 +58,7 @@ exports.putUser = function (req, res) {
     if (!user)
       return res.json({ message: 'nouser' });
 
-    user.email = req.body.email;//apenas em DEV, PRD não muda email
+    //user.email = req.body.email;//apenas em DEV, PRD não muda email
     user.nome = req.body.nome;
     user.sobrenome = req.body.sobrenome;
     user.senha = req.body.senha;
