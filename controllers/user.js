@@ -52,7 +52,7 @@ exports.postUser = function (req, res) {
 //Edita usuario logado
 exports.putUser = function (req, res) {
 
-  User.findOne({ _id: req.body._id }, function (err, user) {
+  User.findOne({ _id: req.headers._id }, function (err, user) {
     if (err)
       return res.send(err);
     if (!user)
