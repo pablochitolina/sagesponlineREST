@@ -11,6 +11,7 @@ var UserSchema = new mongoose.Schema({
   senha: { type: String, required: true },
   ativo: { type: Boolean, default: false },
   token: { type: String, default: null },
+  uuid: { type: String, default: null },
   senhaTemp: { type: String, default: null }
 });
 

@@ -1,5 +1,6 @@
 // Load required packages
 var Servico = require('../models/servico');
+//var multer  = require('multer');
 
 // Create endpoint /api/servicos for POST
 exports.postServicos = function (req, res) {
@@ -7,16 +8,15 @@ exports.postServicos = function (req, res) {
   var servico = new Servico();
   // Set the servico properties that came from the POST data
   servico.foto = req.body.foto;
-  servico.thumb = req.body.thumb;
   servico.lat = req.body.lat;
   servico.lng = req.body.lng;
-  servico.endereco = req.body.endereco;
   servico.desc = req.body.desc;
   servico.data = req.body.data;
-  servico.status = req.body.status;
   servico.cidade = req.body.cidade;
   servico.bairro = req.body.bairro;
-  servico.iduser = req.user._id;
+  servico.rua = req.body.rua;
+  servico.status = req.body.status;
+  servico._idUser = req.body._idUser;
 
   // Save the servico and check for errors
   servico.save(function (err) {
@@ -27,10 +27,28 @@ exports.postServicos = function (req, res) {
   });
 };
 
+exports.postServicosImage = function (req, res) {
+
+  /* var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './uploads/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now())
+    }
+  });
+  var upload = multer({ storage: storage });
+
+  upload.single('foto');
+  console.log("ok multer");*/
+  // Create a new instance of the Servico model
+};
+
+
 // Create endpoint /api/servicos for GET
 exports.getServicos = function (req, res) {
   // Use the Servico model to find all servico
-  Servico.find({ iduser: req.user._id }, function (err, servicos) {
+  Servico.find({ _idUser: req.body._idUser }, function (err, servicos) {
     if (err)
       return res.send(err);
 
@@ -41,7 +59,7 @@ exports.getServicos = function (req, res) {
 // Create endpoint /api/servicos/:servico_id for GET
 exports.getServico = function (req, res) {
   // Use the Servico model to find a specific servico
-  Servico.find({ iduser: req.user._id, _id: req.params.servico_id }, function (err, servico) {
+  Servico.findOne({ _idUser: req.headers._idUser, _id: req.headers._idServico }, function (err, servico) {
     if (err)
       return res.send(err);
 
@@ -49,6 +67,7 @@ exports.getServico = function (req, res) {
   });
 };
 
+//FAZER
 // Create endpoint /api/servicos/:servico_id for PUT
 exports.putServico = function (req, res) {
   // Use the Servico model to find a specific servico
