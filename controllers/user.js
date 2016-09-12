@@ -10,7 +10,6 @@ exports.postUser = function (req, res) {
     email: req.body.email,
     nome: req.body.nome,
     sobrenome: req.body.sobrenome,
-    uuid: req.body.uuid,
     senha: req.body.senha
   });
 
@@ -169,7 +168,7 @@ exports.getForgotPassAct = function (req, res) {
     if (err)
       return res.send(err);
     if (!user)
-      return res.send('Token não encontrado');
+      return res.send('Token não encontrado!');
 
     //user.cript(user.senhaTemp, function (err, hash) {
     //if (err) { return callback(err); }
@@ -178,7 +177,7 @@ exports.getForgotPassAct = function (req, res) {
     user.senhaTemp = null;
     user.save();
 
-    res.send('Nova senha ativa');
+    res.send('Nova senha ativa com sucesso!');
     //});
   });
 };

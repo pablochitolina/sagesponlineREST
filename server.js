@@ -12,7 +12,7 @@ var storage = multer.diskStorage({
       cb(null, './uploads/')
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname + '-' + Date.now())
+      cb(null, file.originalname)
     }
   });
   var upload = multer({ storage: storage }).single('foto');
@@ -41,20 +41,11 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "email, _idServico, _idUser, Content-Type, enctype, Authorization");
   next();
 });
-
 // Create our Express router
 var router = express.Router();
 
-// Create endpoint handlers for /servicos
-router.route('/servicos')
-  .post(authController.isAuthenticated, servicoController.postServicos)
-  .get(authController.isAuthenticated, servicoController.getServicos);
-
-
-
-
 router.route('/servicos/uploadimage')
-  .post(authController.isAuthenticated, function (req, res) {
+  .post(authController.isAuthenticated, function (req, res) {//authController.isAuthenticated,
   upload(req, res, function (err) {
     if (err) {
       // An error occurred when uploading
@@ -65,11 +56,12 @@ router.route('/servicos/uploadimage')
   })
 });
 
-// Create endpoint handlers for /servicos/:servico_id
-router.route('/servicos/:_idServico')
-  .get(authController.isAuthenticated, servicoController.getServico)
-  .put(authController.isAuthenticated, servicoController.putServico)
-  .delete(authController.isAuthenticated, servicoController.deleteServico);
+
+// Create endpoint handlers for /servicos
+router.route('/servico')
+  .post(authController.isAuthenticated, servicoController.postServico)
+  .get(servicoController.getServicos);
+
 
 // Create endpoint handlers for /user
 router.route('/user')
