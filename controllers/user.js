@@ -10,6 +10,8 @@ exports.postUser = function (req, res) {
     email: req.body.email,
     nome: req.body.nome,
     sobrenome: req.body.sobrenome,
+    tipouser: req.body.tipouser,
+    cidade: req.body.cidade,
     senha: req.body.senha
   });
 
@@ -52,7 +54,7 @@ exports.postUser = function (req, res) {
 //Edita usuario logado
 exports.putUser = function (req, res) {
 
-  User.findOne({ _id: req.body._idUser }, function (err, user) {
+  User.findById(req.body.iduser , function (err, user) {
     if (err)
       return res.send(err);
     if (!user)

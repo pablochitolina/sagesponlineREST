@@ -4,17 +4,17 @@ var mongoose = require('mongoose');
 // Define our servico schema
 var ServicoSchema   = new mongoose.Schema({
 
-  filePath: { type: String, default: null},
+  filename: { type: String, default: null, unique: true},
   latlng: { type: String, required: true },
   desc: { type: String, required: true },
-  data: { type: Date, required: true},
-  estado: { type: String, index: true, required: true },
-  cidade: { type: String, index: true, required: true },
-  bairro: { type: String, default: null },
-  rua: { type: String, default: null },
-  endereco: { type: String, default: null },
-  status: { type: String, default: 'novo' },
-  _idUser: { type: String, require: true, index: true }
+  data: { type: String, required: true},
+  estado: { type: String },
+  cidade: { type: String, required: true },
+  bairro: { type: String },
+  rua: { type: String },
+  endereco: { type: String, required: true },
+  status: { type: String, index: true, require: true },
+  iduser: { type: String, index: true, require: true}
 
 });
 

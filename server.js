@@ -19,6 +19,7 @@ var storage = multer.diskStorage({
 
 
 // Connect to the sagespdb MongoDB
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/sagespdb');
 
 // Create our Express application
@@ -38,7 +39,7 @@ app.use(passport.initialize());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-  res.header("Access-Control-Allow-Headers", "email, _idServico, _idUser, Content-Type, Authorization");
+  res.header("Access-Control-Allow-Headers", "email, idservico, status, iduser, Content-Type, Authorization");
   next();
 });
 // Create our Express router
@@ -56,12 +57,17 @@ router.route('/servicos/uploadimage')
   })
 });
 
+router.route('/imagem/:imagename')
+  .get(servicoController.getImagem);
 
 // Create endpoint handlers for /servicos
 router.route('/servico')
   .post(authController.isAuthenticated, servicoController.postServico)
-  .get(servicoController.getServicos);
+  .get(authController.isAuthenticated, servicoController.getServicos)
+  .delete(authController.isAuthenticated, servicoController.deleteServico);
 
+  router.route('/servicodesc')
+  .put(authController.isAuthenticated, servicoController.putServicoDescricao);
 
 // Create endpoint handlers for /user
 router.route('/user')
