@@ -23,7 +23,7 @@ exports.postServico = function (req, res) {
   servico.save(function (err) {
     if (err)
       return res.send(err);
-   return res.json({ message: 'postServicoSuccess', servico: servico });
+   return res.json({ message: 'postServicoSuccess'});
   });
 };
   
@@ -72,20 +72,51 @@ exports.putServicoDescricao = function (req, res) {
     servico.desc = req.body.desc;
     servico.save();
 
-    res.json({ message: 'putServDescSuccess', servico: servico });
+    res.json({ message: 'putServDescSuccess'});
 
   });
 
 };
 
+var fs = require('fs');
+var gutil = require('gulp-util');
+
+
+
 exports.deleteServico = function(req, res) {
-  
-  Servico.remove({_id: req.headers.idservico} , function(err) {
+
+
+  Servico.findById(req.headers.idservico , function (err, servico) {
+    console.log();
     if (err)
       return res.send(err);
+    if (!servico)
+      return res.json({ message: 'noservico' });
 
-    res.json({ message: 'deleteServicoSuccess' });
+    console.log(__dirname+'/../uploads');
+
+    fs.exists(__dirname+'/../uploads/' + servico.filename, function(exists) {
+      if(exists) {
+ 
+        console.log(gutil.colors.green('File exists. Deleting now ...'));
+        fs.unlink(__dirname+'/../uploads/'  + servico.filename);
+
+        Servico.remove({_id: req.headers.idservico} , function(err) {
+          if (err)
+            return res.send(err);
+
+          res.json({ message: 'deleteServicoSuccess' });
+        });
+
+      } else {
+        //Show in red
+        console.log(gutil.colors.red('File not found, so not deleting.'));
+      }
+    });
+
   });
+  
+  
 };
 
 
