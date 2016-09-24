@@ -39,7 +39,7 @@ app.use(passport.initialize());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-  res.header("Access-Control-Allow-Headers", "email, idservico, status, iduser, Content-Type, Authorization");
+  res.header("Access-Control-Allow-Headers", "email, idservico, status, iduser, cidade, Content-Type, Authorization");
   next();
 });
 // Create our Express router
@@ -63,8 +63,18 @@ router.route('/imagem/:imagename')
 // Create endpoint handlers for /servicos
 router.route('/servico')
   .post(authController.isAuthenticated, servicoController.postServico)
-  .get(authController.isAuthenticated, servicoController.getServicos)
+  .get(authController.isAuthenticated, servicoController.getServico)
   .delete(authController.isAuthenticated, servicoController.deleteServico);
+
+  router.route('/servicos')
+  .get(authController.isAuthenticated, servicoController.getServicos);
+
+  // Create endpoint handlers for /servicos
+router.route('/servicolistlatlngcidade')
+  .get(authController.isAuthenticated, servicoController.getListServicosLatlngCidade);
+
+router.route('/servicolistlatlnguser')
+  .get(authController.isAuthenticated, servicoController.getListServicosLatlngUser);
 
   router.route('/servicodesc')
   .put(authController.isAuthenticated, servicoController.putServicoDescricao);

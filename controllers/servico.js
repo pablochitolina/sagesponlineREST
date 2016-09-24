@@ -26,6 +26,45 @@ exports.postServico = function (req, res) {
    return res.json({ message: 'postServicoSuccess'});
   });
 };
+
+exports.getListServicosLatlngCidade = function (req, res) {
+
+  Servico.find({cidade: req.headers.cidade}).select('latlng').select('status').exec(function (err, servicos) {
+    if (err)
+       return res.send(err);
+    if (servicos.length == 0)
+       return res.json({ message: 'noservico' });
+
+    return res.json({ message: 'success', servicos: servicos });
+
+  });
+};
+
+exports.getListServicosLatlngUser = function (req, res) {
+
+  Servico.find({iduser: req.headers.iduser}).select('latlng').select('status').exec(function (err, servicos) {
+    if (err)
+       return res.send(err);
+    if (servicos.length == 0)
+       return res.json({ message: 'noservico' });
+
+    return res.json({ message: 'success', servicos: servicos });
+
+  });
+};
+
+exports.getServico = function (req, res) {
+
+  Servico.findById(req.headers.idservico, {iduser:0}, function (err, servico) {
+    if (err)
+       return res.send(err);
+     if (!servico)
+       return res.json({ message: 'noservico' });;
+
+    return res.json({ message: 'success', servico: servico });
+
+  });
+};
   
 exports.getServicos = function (req, res) {
 
@@ -34,7 +73,6 @@ exports.getServicos = function (req, res) {
        return res.send(err);
      if (!servicos)
        return res.json({ message: 'noservico' });
- 
      // Success
      return res.json({ message: 'success', servicos: servicos });
  
