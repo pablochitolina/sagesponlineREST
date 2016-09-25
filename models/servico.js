@@ -5,9 +5,10 @@ var mongoose = require('mongoose');
 var ServicoSchema   = new mongoose.Schema({
 
   filename: { type: String, default: null, unique: true},
-  latlng: { type: String, required: true },
+  lat: { type: Number, required: true },
+  lng: { type: Number, required: true },
   desc: { type: String, required: true },
-  data: { type: String, required: true},
+  data: { type: Date, required: true},
   estado: { type: String },
   cidade: { type: String, required: true },
   bairro: { type: String },
