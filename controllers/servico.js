@@ -19,7 +19,6 @@ exports.postServico = function (req, res) {
   servico.desc = req.body.desc;
   servico.data = req.body.data;
   servico.rua = req.body.rua;
-  servico.created = new Date();
 
   // Save the servico and check for errors
   servico.save(function (err) {

@@ -9,7 +9,6 @@ var ServicoSchema   = new mongoose.Schema({
   lng: { type: Number, required: true },
   desc: { type: String, required: true },
   data: { type: String, required: true},
-  criado: { type: Date, required: true},
   estado: { type: String },
   cidade: { type: String, required: true },
   bairro: { type: String },
