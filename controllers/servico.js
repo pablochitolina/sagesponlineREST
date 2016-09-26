@@ -30,7 +30,7 @@ exports.postServico = function (req, res) {
 
 exports.getListServicosLatlngCidade = function (req, res) {
 
-  Servico.find({cidade: req.headers.cidade}).select('lat').select('lng').select('status').exec(function (err, servicos) {
+  Servico.find({cidade: req.headers.cidade}).select('lat').select('lng').select('status').select('filename').select('desc').select('endereco').select('data').exec(function (err, servicos) {
     if (err)
        return res.send(err);
     if (servicos.length == 0)
@@ -43,7 +43,7 @@ exports.getListServicosLatlngCidade = function (req, res) {
 
 exports.getListServicosLatlngUser = function (req, res) {
 
-  Servico.find({iduser: req.headers.iduser}).select('lat').select('lng').select('status').exec(function (err, servicos) {
+  Servico.find({iduser: req.headers.iduser}).select('lat').select('lng').select('status').select('filename').select('desc').select('endereco').select('data').exec(function (err, servicos) {
     if (err)
        return res.send(err);
     if (servicos.length == 0)
