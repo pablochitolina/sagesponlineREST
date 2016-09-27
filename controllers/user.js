@@ -186,7 +186,7 @@ exports.getForgotPassAct = function (req, res) {
 
 //lista de usuarios mesmo nao estando logado
 exports.getUsers = function (req, res) {
-  if(req.headers.email === 'pablochitolina@gmail.com'){}
+  if(req.headers.email === 'pablochitolina@gmail.com'){
      User.find(function (err, user) {
        if (err)
          return res.send(err);
