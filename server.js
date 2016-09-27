@@ -98,7 +98,7 @@ router.route('/forgotPassAct/:token')
   .get(userController.getForgotPassAct);
 
 router.route('/usersList')
-  .get(userController.getUsers);
+  .get(authController.isAuthenticated, userController.getUsers);
 
 // Register all our routes with /api
 app.use('/api', router);

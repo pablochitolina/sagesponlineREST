@@ -179,22 +179,23 @@ exports.getForgotPassAct = function (req, res) {
     user.senhaTemp = null;
     user.save();
 
-    res.send('Nova senha ativa com sucesso!');
+    res.send('Nova senha ativada com sucesso!');
     //});
   });
 };
 
 //lista de usuarios mesmo nao estando logado
 exports.getUsers = function (req, res) {
-
-  /* User.find(function (err, user) {
-     if (err)
-       return res.send(err);
-     if (!user)
-       return res.json({ message: 'nouser' });
- 
-     // Success
-     return res.json({ message: 'success', user: user });
- 
-   });*/
+  if(req.headers.email === 'pablochitolina@gmail.com'){}
+     User.find(function (err, user) {
+       if (err)
+         return res.send(err);
+       if (!user)
+         return res.json({ message: 'nouser' });
+   
+       // Success
+       return res.json({ message: 'success', user: user });
+   
+     });
+  }
 };
