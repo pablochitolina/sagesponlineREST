@@ -2,7 +2,7 @@
 var User = require('../models/user');
 var nodemailer = require("nodemailer");
 
-var transporter = nodemailer.createTransport('smtps://sagesponline%40gmail.com:090219sagesp@smtp.gmail.com')
+var transporter = nodemailer.createTransport('smtps://droidgodev%40gmail.com:090219ZeXoWa@smtp.gmail.com')
 
 //Cria novo usuario e envia token de ativação
 exports.postUser = function (req, res) {
