@@ -6,6 +6,7 @@ var transporter = nodemailer.createTransport('smtps://droidgodev%40gmail.com:090
 
 //Cria novo usuario e envia token de ativação
 exports.postUser = function (req, res) {
+  console.log('email ' + req.body.email + ' - senha ' + req.body.senha);
   var user = new User({
 
     email: req.body.email,
