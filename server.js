@@ -83,7 +83,8 @@ router.route('/servicolistlatlnguser')
 router.route('/user')
   .post(userController.postUser)
   .put(authController.isAuthenticated, userController.putUser)
-  .get(authController.isAuthenticated, userController.getUser);
+  .get(authController.isAuthenticated, userController.getUser)
+  .delete(authController.isAuthenticated, userController.deleteUser);
 
 // Ativar user
 router.route('/userAuth/:token')

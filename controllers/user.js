@@ -199,3 +199,14 @@ exports.getUsers = function (req, res) {
      });
   }
 };
+
+exports.deleteUser = function(req, res) {
+
+  User.remove({_id: req.headers.iduser} , function(err) {
+          if (err)
+            return res.send(err);
+
+          res.json({ message: 'deleteUserSuccess' });
+        });  
+  
+};
