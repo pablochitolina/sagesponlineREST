@@ -6,8 +6,7 @@ var User = require('../models/user');
 passport.use(new BasicStrategy(
   {usernameField: 'email', passwordField: 'senha'},
   function (email, senha, callback) {
-    console.log('email ' + email);
-    console.log('senha ' + senha);
+    console.log('email ' + email + ' - senha ' + senha);
     User.findOne({ email: email }, function (err, user) {
       if (err) { return callback(err); }
 
