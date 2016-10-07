@@ -54,13 +54,26 @@ exports.getListServicosLatlngUser = function (req, res) {
   });
 };
 
+exports.getServicoById = function (req, res) {
+
+  Servico.findById(req.params.idservico, {iduser:0}, function (err, servico) {
+    if (err)
+       return res.send(err);
+     if (!servico)
+       return res.json({ message: 'noservico' });;
+
+    return res.json({ message: 'success', servico: servico });
+
+  });
+};
+
 exports.getServico = function (req, res) {
 
   Servico.findById(req.headers.idservico, {iduser:0}, function (err, servico) {
     if (err)
        return res.send(err);
      if (!servico)
-       return res.json({ message: 'noservico' });;
+       return res.json({ message: 'noservico' });
 
     return res.json({ message: 'success', servico: servico });
 

@@ -52,6 +52,32 @@ exports.postUser = function (req, res) {
   });
 };
 
+//Edita usuario logado
+exports.postMessage = function (req, res) {
+
+var name = req.body.name;
+var email = req.body.email;
+var message = req.body.message;
+  // setup e-mail data with unicode symbols
+      var mailOptions = {
+        from: email, // sender address
+        to: "pablochitolina@gmail.com", // list of receivers
+        subject: "Contato SAGESP", // Subject line
+        html: "<p>Email: " + email + "</p><p>Nome: " + name + "</p><p>Mensagem: " + message + "</p>" // html body
+
+      }
+
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          return console.log(error);
+        }
+      });
+
+      res.json({message: 'success'});
+
+};
+
 
 //Edita usuario logado
 exports.putUser = function (req, res) {

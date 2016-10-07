@@ -66,6 +66,9 @@ router.route('/servico')
   .get(authController.isAuthenticated, servicoController.getServico)
   .delete(authController.isAuthenticated, servicoController.deleteServico);
 
+  router.route('/servico/:idservico')
+  .get(servicoController.getServicoById);
+
   router.route('/servicos')
   .get(authController.isAuthenticated, servicoController.getServicos);
 
@@ -94,6 +97,9 @@ router.route('/userAuth/:token')
 router.route('/forgotPass')
   .get(userController.getForgotPass);
 
+  router.route('/postmessage')
+  .post(userController.postMessage);
+
 // Esqueceu a senha
 router.route('/forgotPassAct/:token')
   .get(userController.getForgotPassAct);
@@ -103,6 +109,8 @@ router.route('/usersList')
 
 // Register all our routes with /api
 app.use('/api', router);
+
+app.use(express.static(__dirname + '/public')); 
 
 // Start the server
 

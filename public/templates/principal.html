@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>SAGESP Online</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+
+	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+</head>
+
+<body>
+
+	<!-- Header -->
+	<div id="header">
+
+		<div class="top">
+
+			<!-- Logo -->
+			<div id="logo">
+				<span class="image avatar48"><img src="img/pinred.png" alt="" /></span>
+				<h1 id="title">SAGESP</h1>
+				<p>SISTEMA DE APOIO A GESTÃO DE SERVIÇOS PÚBLICOS</p>
+			</div>
+
+			<!-- Nav -->
+			<nav id="nav">
+
+				<ul>
+					<li ng-show="mostraDesc"><a href="#top" du-smooth-scroll id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-map">Mapa</span></a></li>
+					<li ng-show="mostraDesc" class="ng-hide"><a href="#desc" du-smooth-scroll id="desc-link" class="skel-layers-ignoreHref"><span class="icon fa-tag">Descrição</span></a></li>
+					<li><a href="#como" du-smooth-scroll id="como-link" class="skel-layers-ignoreHref"><span class="icon fa-question-circle">Como funciona?</span></a></li>
+					<li><a href="#contact" du-smooth-scroll id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Contato</span></a></li>
+				</ul>
+			</nav>
+
+		</div>
+
+		<div class="bottom" style="text-align: center;">
+
+			<a href="https://play.google.com/store/apps/details?id=br.com.droidgo.sagesp"><img style="width: 150px" alt="SAGESP" src="images/google-play.png"></a>
+
+		</div>
+
+	</div>
+
+	<!-- Main <div id="map" style="height: 100%; position: absolute; top: 0; bottom: -200px; left: 0; right: 0; z-index: 0;" ></div> -->
+	<div id="main">
+
+		<!-- Intro -->
+		<section ng-show="mostraDesc" id="top" style="z-index: 100;position: relative;" class="one">
+
+			<div id="map" style="height: 100%; position: absolute; top: 0; bottom: -200px; left: 0; right: 0; z-index: 0;"></div>
+
+			<div class="container">
+
+				<header style="min-height: 200px">
+
+				</header>
+
+				<footer>
+					<a href="#como" du-smooth-scroll class="button scrolly borda-2px"><strong  style="color: #000">Como funciona?</strong></a>
+				</footer>
+
+			</div>
+		</section>
+
+
+		<section id="desc" ng-show="mostraDesc" class="two">
+			<div class="container">
+
+				<header>
+					<h2 style="color: {{cor}}">{{status}}</h2>
+				</header>
+
+				<p>{{desc}}</p>
+
+				<div class="row">
+					<div class="2u 12u$(mobile)">
+
+					</div>
+					<div class="8u 12u$(mobile)">
+						<article class="item">
+							<a href="#" class="image fit"><img src="{{imagem}}" alt="" /></a>
+							<header>
+								<h3>{{endereco}}</h3>
+							</header>
+						</article>
+
+					</div>
+					<div class="2u$ 12u$(mobile)">
+
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+
+		<section id="como" class="three">
+			<div class="container">
+
+				<header>
+					<h2>Como funciona?</h2>
+				</header>
+
+				<a href="#" class="image featured"><img src="img/1024.png" alt="" /></a>
+
+				<p style="text-align: left;">A maneira mais rápida e prática de solicitar serviços públicos nas sua prefeitura.</p>
+				<p style="text-align: left;">SAGESP é uma ferramenta que possibilita a qualquer um criar chamados que serão enviados diretamente ao órgão responsável
+					pela administração pública de sua cidade.</p>
+				<p style="text-align: left;">Com o SAGESP você pode, por exemplo: <br/> * Denunciar pontos de proliferação do Aedes aegypti;<br/> * Solicitar recolhimento
+					de lixo e entulhos;<br/> * Informar a necessidade de reparo nas vias;<br/> * Solicitar troca de lâmpadas queimadas em
+					postes de iluminação pública;<br/> E muito mais!</p>
+
+				<p style="text-align: left;">O uso é simples. Basta clicar no botão "+" (vermelho e redondo no canto superior direito da tela) para iniciar o cadastro
+					de um chamado. Selecione, no mapa, o local onde se encontra o problema. Vá para a próxima aba e tire uma foto, escreva
+					uma breve descrição e clique em "CRIAR CHAMADO". Pronto!</p>
+
+				<p style="text-align: left;">Baixe já o aplicativo e tenha a solução para seus problemas na palma da sua mão!</p>
+
+			</div>
+
+		</section>
+
+
+
+		<!-- Contact -->
+		<section id="contact" class="four">
+			<div class="container">
+
+				<header>
+					<h2>Contato</h2>
+				</header>
+
+				<p>Deixe-nos sua mensagem</p>
+				<iframe name="voltar" style="display:none;"></iframe>
+				<form method="post" ng-submit="enviaMsg()" target="voltar">
+					<div class="row">
+						<div class="6u 12u$(mobile)"><input type="text" ng-model="data.name" placeholder="Nome" /></div>
+						<div class="6u$ 12u$(mobile)"><input type="text" ng-model="data.email" placeholder="Email" /></div>
+						<div class="12u$">
+							<textarea ng-model="data.message" placeholder="Mensagem"></textarea>
+						</div>
+						<div class="12u$">
+							<input type="submit" value="Enviar mensagem" />
+						</div>
+						<div class="12u$">
+							<strong style="color: #008744" ng-show="enviado === 'sim'">Mensagem enviada com sucesso!</strong>
+							<strong style="color: #d62d20" ng-show="enviado === 'erro'">Erro ao enviar mensagem!</strong>
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<div id="footer">
+
+		<!-- Copyright -->
+		<ul class="copyright">
+			<li>&copy; Untitled. All rights reserved.</li>
+			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/jquery.scrollzer.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
