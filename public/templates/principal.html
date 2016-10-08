@@ -34,7 +34,7 @@
 			<nav id="nav">
 
 				<ul>
-					<li><a href="#top" du-smooth-scroll id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-map">Mapa</span></a></li>
+					<li><a href="#top"  ng-show="!mostraDesc" du-smooth-scroll id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-map">Mapa</span></a></li>
 					<li ng-show="mostraDesc"><a href="#desc" du-smooth-scroll id="desc-link" class="skel-layers-ignoreHref"><span class="icon fa-tag">Descrição</span></a></li>
 					<li><a href="#como" du-smooth-scroll id="como-link" class="skel-layers-ignoreHref"><span class="icon fa-question-circle">Como funciona?</span></a></li>
 					<li><a href="#contact" du-smooth-scroll id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Contato</span></a></li>
@@ -55,49 +55,53 @@
 	<div id="main">
 
 		<!-- Intro -->
-		<section id="top" style="z-index: 100;position: relative;" class="one">
+		<section id="top" ng-show="!mostraDesc" style="position: relative; min-height: 400px" >
 
-			<div id="map" style="height: 100%; position: absolute; top: 0; bottom: -200px; left: 0; right: 0; z-index: 0;"></div>
+			<div id="map" style="height: 100%; position: absolute; top: 0;  left: 0; right: 0;"></div>
 
-			<div class="container">
-
-				<header style="min-height: 200px">
-
-				</header>
-
-				<footer>
-					<a href="#como" du-smooth-scroll class="button scrolly borda-2px"><strong  style="color: #000">Como funciona?</strong></a>
-				</footer>
-
-			</div>
 		</section>
 
 
 		<section id="desc" ng-show="mostraDesc" class="two">
 			<div class="container">
 
-				<header>
-					<h2 style="color: {{cor}}">{{status}}</h2>
-				</header>
-
-				<p>{{desc}}</p>
-
+				
 				<div class="row">
-					<div class="2u 12u$(mobile)">
-
+					<div class="12u 12u$(mobile)">
+						<header>
+							<h2 style="color: {{cor}}">{{status}}</h2>
+						</header>
+						<h4 style="margin-bottom: 30px;">{{desc}}</h4>
+						
+						
+						
 					</div>
-					<div class="8u 12u$(mobile)">
+
+				</div>
+				<div class="row">
+					<div class="6u 12u$(mobile)">
 						<article class="item">
-							<a href="#" class="image fit"><img src="{{imagem}}" alt="" /></a>
-							<header>
-								<h3>{{endereco}}</h3>
-							</header>
+							<a class="image fit"><img src="{{imagem}}" id="imagem" alt="" /></a>
+							
 						</article>
-
 					</div>
-					<div class="2u$ 12u$(mobile)">
 
+					<div class="6u 12u$(mobile)">
+												
+							
+						<div id="mapdesc" style="height: {{mapSize}}px;"></div>
+			
 					</div>
+
+
+				</div>
+				<div class="row">
+				<div class="12u 12u$(mobile)">
+						<p style="margin-bottom: 30px;" >{{endereco}}</p>
+						<a href="#como" du-smooth-scroll class="button scrolly"><strong  style="color: #fff">Como funciona?</strong></a>
+						
+					</div>
+				
 				</div>
 
 			</div>
@@ -106,25 +110,31 @@
 
 		<section id="como" class="three">
 			<div class="container">
-
-				<header>
+<header>
 					<h2>Como funciona?</h2>
 				</header>
 
-				<a class="image featured"><img src="img/1024.jpg" alt="" /></a>
-
-				<p style="text-align: left;">A maneira mais rápida e prática de solicitar serviços públicos nas sua prefeitura.</p>
+			<div class="row">
+					<div class="6u 12u$(mobile)">
+<p style="text-align: left;">A maneira mais rápida e prática de solicitar serviços públicos nas sua prefeitura.</p>
 				<p style="text-align: left;">SAGESP é uma ferramenta que possibilita a qualquer um criar chamados que serão enviados diretamente ao órgão responsável
 					pela administração pública de sua cidade.</p>
-				<p style="text-align: left;">Com o SAGESP você pode, por exemplo: <br/> * Denunciar pontos de proliferação do Aedes aegypti;<br/> * Solicitar recolhimento
+					<p style="text-align: left;">Com o SAGESP você pode, por exemplo: <br/> * Denunciar pontos de proliferação do Aedes aegypti;<br/> * Solicitar recolhimento
 					de lixo e entulhos;<br/> * Informar a necessidade de reparo nas vias;<br/> * Solicitar troca de lâmpadas queimadas em
 					postes de iluminação pública;<br/> E muito mais!</p>
-
-				<p style="text-align: left;">O uso é simples. Basta clicar no botão "+" (vermelho e redondo no canto superior direito da tela) para iniciar o cadastro
+					</div>
+					<div class="6u 12u$(mobile)">
+						<a class="image featured"><img src="img/1024.jpg" alt="" /></a>
+<p style="text-align: left; color: #ffa700;">O uso é simples. Basta clicar no botão "+" (vermelho e redondo no canto superior direito da tela) para iniciar o cadastro
 					de um chamado. Selecione, no mapa, o local onde se encontra o problema. Vá para a próxima aba e tire uma foto, escreva
 					uma breve descrição e clique em "CRIAR CHAMADO". Pronto!</p>
+					</div>
 
-				<p style="text-align: left;">Baixe já o aplicativo e tenha a solução para seus problemas na palma da sua mão!</p>
+				</div>
+
+
+				<p style="text-align: center;">Baixe já o aplicativo e tenha a solução para seus problemas na palma da sua mão!</p>
+				<a href="https://play.google.com/store/apps/details?id=br.com.droidgo.sagesp"><img style="width: 200px" alt="SAGESP" src="images/google-play.png"></a>
 
 			</div>
 
@@ -184,7 +194,7 @@
 
 		<!-- Copyright -->
 		<ul class="copyright">
-			<li>&copy; Untitled. All rights reserved.</li>
+			<li>&copy; Droid.GO. All rights reserved.</li>
 			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 		</ul>
 

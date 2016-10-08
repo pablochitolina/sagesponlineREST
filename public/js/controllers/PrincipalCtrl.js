@@ -6,22 +6,32 @@
     $scope.mostraDesc = false;
 
     $scope.enviado = 'nao';
+    var img = document.getElementById('imagem'); 
+    setWindowSize();
+
+    $window.addEventListener('resize', setWindowSize);
+
+    function setWindowSize() {
+      $scope.mapSize = img.clientWidth;
+
+    }
+
 
     carregamapa = function (data) {
-
-        if (!!navigator.geolocation) {
-
-            var mapOptions = {
+        var mapOptions = {
                 zoom: 14,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 scrollwheel: false
             };
-
             var marker = new google.maps.Marker({});
 
-            $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        if (!!navigator.geolocation) {
 
+           
             if (data && data.message === 'success') {
+
+            $scope.mapdesc = new google.maps.Map(document.getElementById('mapdesc'), mapOptions);
+
                 $scope.mostraDesc = true;
                 var icon = {};
                 var status, cor;
@@ -77,12 +87,12 @@
                 var geolocate = new google.maps.LatLng(data.servico.lat, data.servico.lng);
 
                 marker = new google.maps.Marker({
-                    map: $scope.map,
+                    map: $scope.mapdesc,
                     icon: icon,
                     position: geolocate
                 });
 
-                $scope.map.setCenter(geolocate)
+                $scope.mapdesc.setCenter(geolocate)
                 var infowindow = new google.maps.InfoWindow({
                     maxWidth: $window.innerWidth / 2
                 });
@@ -93,13 +103,14 @@
                 google.maps.event.addListener(marker, 'click', (function (marker, conteudo, infowindow) {
                     return function () {
                         infowindow.setContent(conteudo);
-                        infowindow.open($scope.map, marker);
+                        infowindow.open($scope.mapdesc, marker);
                     };
                 })(marker, conteudo, infowindow));
 
             } else {
+
                 $scope.mostraDesc = false;
-                console.log('nodata');
+                $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
                 navigator.geolocation.getCurrentPosition(function (position) {
 

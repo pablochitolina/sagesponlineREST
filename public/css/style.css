@@ -1,7 +1,7 @@
 /* Empty. Add your own CSS if you like */
 /* Utilities */
 
-.borda-2px {text-shadow: -1px 0 #999, 0 1px #999, 1px 0 #999, 0 -1px #999;}
+.borda-2px {text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;}
 
 .transparent {
   background: transparent !important;
