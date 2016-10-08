@@ -34,8 +34,8 @@
 			<nav id="nav">
 
 				<ul>
-					<li ng-show="mostraDesc"><a href="#top" du-smooth-scroll id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-map">Mapa</span></a></li>
-					<li ng-show="mostraDesc" class="ng-hide"><a href="#desc" du-smooth-scroll id="desc-link" class="skel-layers-ignoreHref"><span class="icon fa-tag">Descrição</span></a></li>
+					<li><a href="#top" du-smooth-scroll id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-map">Mapa</span></a></li>
+					<li ng-show="mostraDesc"><a href="#desc" du-smooth-scroll id="desc-link" class="skel-layers-ignoreHref"><span class="icon fa-tag">Descrição</span></a></li>
 					<li><a href="#como" du-smooth-scroll id="como-link" class="skel-layers-ignoreHref"><span class="icon fa-question-circle">Como funciona?</span></a></li>
 					<li><a href="#contact" du-smooth-scroll id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Contato</span></a></li>
 				</ul>
@@ -55,7 +55,7 @@
 	<div id="main">
 
 		<!-- Intro -->
-		<section ng-show="mostraDesc" id="top" style="z-index: 100;position: relative;" class="one">
+		<section id="top" style="z-index: 100;position: relative;" class="one">
 
 			<div id="map" style="height: 100%; position: absolute; top: 0; bottom: -200px; left: 0; right: 0; z-index: 0;"></div>
 
@@ -111,7 +111,7 @@
 					<h2>Como funciona?</h2>
 				</header>
 
-				<a href="#" class="image featured"><img src="img/1024.jpg" alt="" /></a>
+				<a class="image featured"><img src="img/1024.jpg" alt="" /></a>
 
 				<p style="text-align: left;">A maneira mais rápida e prática de solicitar serviços públicos nas sua prefeitura.</p>
 				<p style="text-align: left;">SAGESP é uma ferramenta que possibilita a qualquer um criar chamados que serão enviados diretamente ao órgão responsável
