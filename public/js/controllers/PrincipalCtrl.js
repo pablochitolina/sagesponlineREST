@@ -139,8 +139,10 @@
         $location.hash(old);
     };
 
-$scope.enviaMsg = function(){
+$scope.enviaMsg = function(valid){
+
     $scope.enviado = 'nao';
+    if(valid){
     $http.post('/api/postmessage/',{
                 name: $scope.data.name,
                 email: $scope.data.email,
@@ -149,12 +151,15 @@ $scope.enviaMsg = function(){
                 if(data.message === 'success'){
                     $scope.enviado = 'sim';
                 }else{
-                    $scope.enviado = 'erro'
+                    $scope.enviado = 'erro';
                 }
             })
             .error(function (data) {
-                $scope.enviado = 'erro'
+                $scope.enviado = 'erro';
             });
+        }else{
+            $scope.enviado = 'inv';
+        }
 }
 
 });

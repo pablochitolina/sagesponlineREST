@@ -45,7 +45,7 @@
 
 		<div class="bottom" style="text-align: center;">
 
-			<a href="https://play.google.com/store/apps/details?id=br.com.droidgo.sagesp"><img style="width: 150px" alt="SAGESP" src="images/google-play.png"></a>
+			<a href="https://play.google.com/store/apps/details?id=br.com.droidgo.sagesp"><img style="width: 200px" alt="SAGESP" src="images/google-play.png"></a>
 
 		</div>
 
@@ -111,7 +111,7 @@
 					<h2>Como funciona?</h2>
 				</header>
 
-				<a href="#" class="image featured"><img src="img/1024.png" alt="" /></a>
+				<a href="#" class="image featured"><img src="img/1024.jpg" alt="" /></a>
 
 				<p style="text-align: left;">A maneira mais rápida e prática de solicitar serviços públicos nas sua prefeitura.</p>
 				<p style="text-align: left;">SAGESP é uma ferramenta que possibilita a qualquer um criar chamados que serão enviados diretamente ao órgão responsável
@@ -142,12 +142,24 @@
 
 				<p>Deixe-nos sua mensagem</p>
 				<iframe name="voltar" style="display:none;"></iframe>
-				<form method="post" ng-submit="enviaMsg()" target="voltar">
+				<form method="post" name="contato" novalidate ng-submit="enviaMsg(contato.$valid)" target="voltar">
 					<div class="row">
-						<div class="6u 12u$(mobile)"><input type="text" ng-model="data.name" placeholder="Nome" /></div>
-						<div class="6u$ 12u$(mobile)"><input type="text" ng-model="data.email" placeholder="Email" /></div>
+					<!--nome-->
+						<div class="6u 12u$(mobile)">
+							<input type="text" ng-model="data.nome" name="nome" placeholder="Nome" ng-minlength="2" ng-maxlength="15" required>
+							<span ng-show="contato.nome.$error.minlength" style="color: #d62d20">Nome muito curto (Min. 2).</span>
+		                    <span ng-show="contato.nome.$error.maxlength" style="color: #d62d20">Nome muito longo (Max. 15).</span>
+						</div>
+					<!--email-->
+						<div class="6u 12u$(mobile)">
+							<input type="email" name="email" ng-model="data.email" placeholder="Email" required>
+							<span ng-show="contato.email.$invalid && !contato.email.$pristine" style="color: #d62d20"">Use um email válido.</span>
+						</div>
+						<!--message-->
 						<div class="12u$">
-							<textarea ng-model="data.message" placeholder="Mensagem"></textarea>
+							<textarea  ng-model="data.message" name="message" placeholder="Mensagem" ng-minlength="10" ng-maxlength="1000" required></textarea>
+							<span ng-show="contato.message.$error.minlength" style="color: #d62d20">Mensagem muito curta (Min. 10).</span>
+		                    <span ng-show="contato.message.$error.maxlength" style="color: #d62d20">Mensagem muito longa (Max. 1000).</span>
 						</div>
 						<div class="12u$">
 							<input type="submit" value="Enviar mensagem" />
@@ -155,9 +167,11 @@
 						<div class="12u$">
 							<strong style="color: #008744" ng-show="enviado === 'sim'">Mensagem enviada com sucesso!</strong>
 							<strong style="color: #d62d20" ng-show="enviado === 'erro'">Erro ao enviar mensagem!</strong>
+							<strong style="color: #d62d20" ng-show="enviado === 'inv'">Erro no formulário!</strong>
 						</div>
 
 					</div>
+					
 				</form>
 
 			</div>

@@ -55,6 +55,7 @@ exports.postUser = function (req, res) {
 //Edita usuario logado
 exports.postMessage = function (req, res) {
 
+
 var name = req.body.name;
 var email = req.body.email;
 var message = req.body.message;
