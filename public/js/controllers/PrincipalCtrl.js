@@ -125,7 +125,7 @@
 
             carregamapa = function () {
 
-                console.log('carrega mapa');
+                //console.log('carrega mapa');
 
                 if (!!navigator.geolocation) { 
 
@@ -152,12 +152,12 @@
             if (idservico !== undefined) {
                 $http.get('/api/servico/' + idservico)
                     .success(function (data) {
-                        console.log("data: " + JSON.stringify(data));
+                        //console.log("data: " + JSON.stringify(data));
                         carregamapadesc(data);
                         carregamapa();
                     })
                     .error(function (data) {
-                        console.log("ERR: " + JSON.stringify(data));
+                        //console.log("ERR: " + JSON.stringify(data));
                         $scope.mostraDesc = false;
                         carregamapa();
                     });
@@ -218,15 +218,15 @@
                     } 
                   }
 
-                  console.log("cidade " + enderecoReversoCidade);
+                  //console.log("cidade " + enderecoReversoCidade);
 
                   var cidades = JSON.search(Cidades, '//*[Estado="' + enderecoReversoEstado + '"]');
-                  console.log("cidades: " + JSON.stringify(cidades));
+                  //console.log("cidades: " + JSON.stringify(cidades));
                   
                   if (cidades.length > 0) {
 
                     var mun = JSON.search(cidades, '//*[contains(Nome,"' + enderecoReversoCidade + '")]');
-                    console.log("mun: " + JSON.stringify(mun));
+                    //console.log("mun: " + JSON.stringify(mun));
 
                     if (mun.length == 1) {
 
@@ -254,7 +254,7 @@
                         
                         if (data.message === 'success') {
 
-                            console.log(JSON.stringify(data));
+                            //console.log(JSON.stringify(data));
 
                             angular.forEach(data.servicos, function (item) {
 
@@ -330,7 +330,7 @@
                     })
                     .error(function (data, status, headers, config) {
                        
-                        console.log('status ' + status);
+                        console.log('erro ao buscar pontos por lat lng');
                         
                     });
             }
