@@ -125,6 +125,8 @@
 
             carregamapa = function () {
 
+                console.log('carrega mapa');
+
                 if (!!navigator.geolocation) { 
 
                     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -145,20 +147,23 @@
 
             }
 
-            google.maps.event.addDomListener($window, 'load', carregamapa);
+            
 
             if (idservico !== undefined) {
                 $http.get('/api/servico/' + idservico)
                     .success(function (data) {
                         console.log("data: " + JSON.stringify(data));
                         carregamapadesc(data);
+                        carregamapa();
                     })
                     .error(function (data) {
                         console.log("ERR: " + JSON.stringify(data));
                         $scope.mostraDesc = false;
+                        carregamapa();
                     });
             } else {
                 $scope.mostraDesc = false;
+                carregamapa();
             }
 
             $scope.scrollTo = function (id) {
