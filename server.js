@@ -74,7 +74,7 @@ router.route('/servico')
 
   // Create endpoint handlers for /servicos
 router.route('/servicolistlatlngcidade')
-  .get(authController.isAuthenticated, servicoController.getListServicosLatlngCidade);
+  .get( servicoController.getListServicosLatlngCidade);
 
 router.route('/servicolistlatlnguser')
   .get(authController.isAuthenticated, servicoController.getListServicosLatlngUser);
