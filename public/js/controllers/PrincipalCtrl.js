@@ -17,40 +17,40 @@
             function setWindowSize() {
               $scope.mapSize = img.clientWidth;
 
-            }
+          }
 
-        var mapOptions = {
+          var mapOptions = {
             zoom: 14,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             scrollwheel: false
         };
 
-            carregamapadesc = function (data) {
+        carregamapadesc = function (data) {
 
-                var marker = new google.maps.Marker({});             
+            var marker = new google.maps.Marker({});             
 
-                if (!!navigator.geolocation) { 
+            if (!!navigator.geolocation) { 
 
-                    $scope.mapdesc = new google.maps.Map(document.getElementById('mapdesc'), mapOptions); 
+                $scope.mapdesc = new google.maps.Map(document.getElementById('mapdesc'), mapOptions); 
 
-                    if (data && data.message === 'success') {
+                if (data && data.message === 'success') {
 
-                        $scope.mostraDesc = true;
-                        var icon = {};
-                        var status, cor;
+                    $scope.mostraDesc = true;
+                    var icon = {};
+                    var status, cor;
 
-                        switch (data.servico.status) {
-                            case "novo":
-                                status = "Novo";
-                                cor = "#d62d20";
-                                icon = {
+                    switch (data.servico.status) {
+                        case "novo":
+                        status = "Novo";
+                        cor = "#d62d20";
+                        icon = {
                                     url: "img/pinred.png", // url
                                     scaledSize: new google.maps.Size(41, 68), // scaled size
                                     origin: new google.maps.Point(0, 0), // origin
                                     anchor: new google.maps.Point(20, 68) // anchor
                                 };
                                 break;
-                            case "atendido":
+                                case "atendido":
                                 status = "Atendido"
                                 cor = "#ffa700";
                                 icon = {
@@ -60,7 +60,7 @@
                                     anchor: new google.maps.Point(20, 68) // anchorr
                                 };
                                 break;
-                            case "resolvido":
+                                case "resolvido":
                                 status = "Resolvido"
                                 cor = "#008744";
                                 icon = {
@@ -70,62 +70,62 @@
                                     anchor: new google.maps.Point(20, 68) // anchor
                                 };
                                 break;
-                            default:
+                                default:
                                 icon = 'img/pinred.png';
-                        }
+                            }
 
-                        var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
+                            var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
                             '<h2 style="color: ' + cor + '">' + status + '</h2> ' +
                             '<img src="/api/imagem/' + data.servico.filename + '" style=" max-width: ' + $window.innerWidth / 4 + 'px; vertical-align: top" />' +
                             '<p><strong>' + data.servico.data + '</strong> - ' + data.servico.endereco + '</p>' +
                             '<p><em>' + data.servico.desc + '</em></p>' +
                             '</div>';
 
-                        $scope.imagem = '/api/imagem/' + data.servico.filename;
-                        $scope.status = status
-                        $scope.desc = data.servico.desc
-                        $scope.endereco = data.servico.endereco;
-                        $scope.cor = cor;
+                            $scope.imagem = '/api/imagem/' + data.servico.filename;
+                            $scope.status = status
+                            $scope.desc = data.servico.desc
+                            $scope.endereco = data.servico.endereco;
+                            $scope.cor = cor;
 
-                        var geolocate = new google.maps.LatLng(data.servico.lat, data.servico.lng);
+                            var geolocate = new google.maps.LatLng(data.servico.lat, data.servico.lng);
 
-                        marker = new google.maps.Marker({
-                            map: $scope.mapdesc,
-                            icon: icon,
-                            position: geolocate
-                        });
+                            marker = new google.maps.Marker({
+                                map: $scope.mapdesc,
+                                icon: icon,
+                                position: geolocate
+                            });
 
-                        $scope.mapdesc.setCenter(geolocate);
-
-                        var infowindow = new google.maps.InfoWindow({
-                            maxWidth: $window.innerWidth / 2
-                        });
-
-                        google.maps.event.addListener(marker, 'click', (function (marker, conteudo, infowindow) {
-                            return function () {
-                                infowindow.setContent(conteudo);
-                                infowindow.open($scope.mapdesc, marker);
-                            };
-                        })(marker, conteudo, infowindow));
-
-                    } else {
-
-                        navigator.geolocation.getCurrentPosition(function (position) {
-                            var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                             $scope.mapdesc.setCenter(geolocate);
 
-                            $scope.mostraDesc = false;
-                        });
-                        
+                            var infowindow = new google.maps.InfoWindow({
+                                maxWidth: $window.innerWidth / 2
+                            });
+
+                            google.maps.event.addListener(marker, 'click', (function (marker, conteudo, infowindow) {
+                                return function () {
+                                    infowindow.setContent(conteudo);
+                                    infowindow.open($scope.mapdesc, marker);
+                                };
+                            })(marker, conteudo, infowindow));
+
+                        } else {
+
+                            navigator.geolocation.getCurrentPosition(function (position) {
+                                var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                                $scope.mapdesc.setCenter(geolocate);
+
+                                $scope.mostraDesc = false;
+                            });
+                            
+                        }
+
+                    } else {
+                        $scope.mostraDesc = false;
+                        document.getElementById('map').innerHTML = 'Sem suporte a Geolocalização.';
                     }
-
-                } else {
-                    $scope.mostraDesc = false;
-                    document.getElementById('map').innerHTML = 'Sem suporte a Geolocalização.';
                 }
-            }
 
-            carregamapa = function () {
+                carregamapa = function () {
 
                 //console.log('carrega mapa');
 
@@ -153,12 +153,12 @@
 
             if (idservico !== undefined) {
                 $http.get('/api/servico/' + idservico)
-                    .success(function (data) {
+                .success(function (data) {
                         //console.log("data: " + JSON.stringify(data));
                         carregamapadesc(data);
                         carregamapa();
                     })
-                    .error(function (data) {
+                .error(function (data) {
                         //console.log("ERR: " + JSON.stringify(data));
                         $scope.mostraDesc = false;
                         carregamapa();
@@ -176,11 +176,11 @@
                 $location.hash(old);
             };
 
-        $scope.enviaMsg = function(valid){
+            $scope.enviaMsg = function(valid){
 
-            $scope.enviado = 'nao';
-            if(valid){
-            $http.post('/api/postmessage/',{
+                $scope.enviado = 'nao';
+                if(valid){
+                    $http.post('/api/postmessage/',{
                         name: $scope.data.name,
                         email: $scope.data.email,
                         message: $scope.data.message})
@@ -197,27 +197,27 @@
                 }else{
                     $scope.enviado = 'inv';
                 }
-        }
+            }
 
-        function geocodeLatLng(latlng) {
+            function geocodeLatLng(latlng) {
 
-        var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'location': latlng }, function (results, status) {
-           
-              if (status === google.maps.GeocoderStatus.OK) {
-                if (results[1]) {
-                  enderecoReversoCidade = 'nf';
-                  enderecoReversoEstado = 'nf';
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'location': latlng }, function (results, status) {
+                 
+                  if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                      enderecoReversoCidade = 'nf';
+                      enderecoReversoEstado = 'nf';
 
-                  var arrAddress = results[0].address_components;
+                      var arrAddress = results[0].address_components;
 
-                  for (ac = 0; ac < arrAddress.length; ac++) {
-                    if (arrAddress[ac].types[0] == "locality") {
-                      enderecoReversoCidade = arrAddress[ac].long_name;
-                    } 
-                    if (arrAddress[ac].types[0] == "administrative_area_level_1") {
-                      enderecoReversoEstado = arrAddress[ac].short_name;
-                    } 
+                      for (ac = 0; ac < arrAddress.length; ac++) {
+                        if (arrAddress[ac].types[0] == "locality") {
+                          enderecoReversoCidade = arrAddress[ac].long_name;
+                      } 
+                      if (arrAddress[ac].types[0] == "administrative_area_level_1") {
+                          enderecoReversoEstado = arrAddress[ac].short_name;
+                      } 
                   }
 
                   //console.log("cidade " + enderecoReversoCidade);
@@ -234,27 +234,27 @@
 
                       $scope.getPontos(mun[0].ID);
 
-                    } 
-                  }
-                             
-                } else {
-                  console.log('Endereço não encontrado');
-                }
-              } else {
-                console.log('Geocoder falhou por: ' + status);
+                  } 
               }
-            });
+              
+          } else {
+              console.log('Endereço não encontrado');
           }
+      } else {
+        console.log('Geocoder falhou por: ' + status);
+    }
+});
+            }
 
-          $scope.getPontos = function (cidade) {
+            $scope.getPontos = function (cidade) {
 
                 $http.defaults.headers.common["Content-Type"] = 'application/json';
                 $http.defaults.headers.common["cidade"] = cidade;
 
                 $http.get('/api/servicolistlatlngcidade/')
-                    .success(function (data, status, headers, config) {
-                        
-                        if (data.message === 'success') {
+                .success(function (data, status, headers, config) {
+                    
+                    if (data.message === 'success') {
 
                             //console.log(JSON.stringify(data));
 
@@ -266,17 +266,17 @@
 
                                 switch (item.status) {
                                     case "novo":
-                                        $scope.contNovo++;
-                                        status = "Novo";
-                                        cor = "#d62d20";
-                                        icon = {
+                                    $scope.contNovo++;
+                                    status = "Novo";
+                                    cor = "#d62d20";
+                                    icon = {
                                             url: "img/pinred.png", // url
                                             scaledSize: new google.maps.Size(21, 34), // scaled size
                                             origin: new google.maps.Point(0, 0), // origin
                                             anchor: new google.maps.Point(10, 34) // anchor
                                         };
                                         break;
-                                    case "atendido":
+                                        case "atendido":
                                         $scope.contAtend++;
                                         status = "Atendido"
                                         cor = "#ffa700";
@@ -287,7 +287,7 @@
                                             anchor: new google.maps.Point(10, 34) // anchor
                                         };
                                         break;
-                                    case "resolvido":
+                                        case "resolvido":
                                         $scope.contRes++;
                                         status = "Resolvido"
                                         cor = "#008744";
@@ -298,10 +298,10 @@
                                             anchor: new google.maps.Point(10, 34) // anchor
                                         };
                                         break;
-                                    default:
+                                        default:
                                         icon = 'img/pinred.png';
-                                }
-                                var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
+                                    }
+                                    var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
                                     '<h2 style="color: ' + cor + '">' + status + '</h2> ' +
                                     '<img src="https://www.sagesponline.com.br/api/imagem/' + item.filename + 
                                     '" style="max-width: ' +  $window.innerWidth / 4 + 'px; vertical-align: top" />' +
@@ -309,50 +309,33 @@
                                     '<p><em>' + item.desc + '</em></p>' +
                                     '</div>';
 
-                                var infowindow = new google.maps.InfoWindow({
-                                    maxWidth: $window.innerWidth / 2
+                                    var infowindow = new google.maps.InfoWindow({
+                                        maxWidth: $window.innerWidth / 2
+                                    });
+
+                                    marker = new google.maps.Marker({
+                                        map: $scope.map,
+                                        icon: icon,
+                                        position: new google.maps.LatLng(item.lat, item.lng)
+                                    });
+
+                                    google.maps.event.addListener(marker, 'click', (function (marker, conteudo, infowindow) {
+                                        return function () {
+                                            infowindow.setContent(conteudo);
+                                            infowindow.open($scope.map, marker);
+                                        };
+                                    })(marker, conteudo, infowindow));
+
                                 });
 
-                                marker = new google.maps.Marker({
-                                    map: $scope.map,
-                                    icon: icon,
-                                    position: new google.maps.LatLng(item.lat, item.lng)
-                                });
+    }
 
-                                google.maps.event.addListener(marker, 'click', (function (marker, conteudo, infowindow) {
-                                    return function () {
-                                        infowindow.setContent(conteudo);
-                                        infowindow.open($scope.map, marker);
-                                    };
-                                })(marker, conteudo, infowindow));
-
-                            });
-
-                        }
-
-                    })
-                    .error(function (data, status, headers, config) {
-                       
-                        console.log('erro ao buscar pontos por lat lng');
-                        
-                    });
-            }
-
+})
+        .error(function (data, status, headers, config) {
+         
+            console.log('erro ao buscar pontos por lat lng');
+            
         });
+    }
 
-        app.directive('scrollTo', function ($location, $anchorScroll) {
-            return function (scope, element, attrs) {
-
-                element.bind('click', function (event) {
-                    event.stopPropagation();
-                    var off = scope.$on('$locationChangeStart', function (ev) {
-                        off();
-                        ev.preventDefault();
-                    });
-                    var location = attrs.scrollTo;
-                    $location.hash(location);
-                    $anchorScroll();
-                });
-
-            };
-        });
+});
