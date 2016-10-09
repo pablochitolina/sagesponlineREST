@@ -110,10 +110,12 @@
 
                     } else {
 
-                        var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                        $scope.mapdesc.setCenter(geolocate);
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            $scope.mapdesc.setCenter(geolocate);
 
-                        $scope.mostraDesc = false;
+                            $scope.mostraDesc = false;
+                        });
                         
                     }
 
