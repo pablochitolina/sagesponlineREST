@@ -76,8 +76,7 @@
 
                         var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
                             '<h2 style="color: ' + cor + '">' + status + '</h2> ' +
-                            '<img src="/api/imagem/' + data.servico.filename + '" style=" background: transparent url(img/squares.svg) ' +
-                            'no-repeat scroll center center; max-width: ' + $window.innerWidth / 4 + 'px; vertical-align: top" />' +
+                            '<img src="/api/imagem/' + data.servico.filename + '" style=" max-width: ' + $window.innerWidth / 4 + 'px; vertical-align: top" />' +
                             '<p><strong>' + data.servico.data + '</strong> - ' + data.servico.endereco + '</p>' +
                             '<p><em>' + data.servico.desc + '</em></p>' +
                             '</div>';
@@ -303,8 +302,7 @@
                                 var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
                                     '<h2 style="color: ' + cor + '">' + status + '</h2> ' +
                                     '<img src="https://www.sagesponline.com.br/api/imagem/' + item.filename + 
-                                    '" style=" background: transparent url(img/squares.svg) no-repeat scroll center center; max-width: ' + 
-                                    $window.innerWidth / 4 + 'px; vertical-align: top" />' +
+                                    '" style="max-width: ' +  $window.innerWidth / 4 + 'px; vertical-align: top" />' +
                                     '<p><strong>' + item.data + '</strong> - ' + item.endereco + '</p>' +
                                     '<p><em>' + item.desc + '</em></p>' +
                                     '</div>';
