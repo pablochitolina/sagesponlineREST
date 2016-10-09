@@ -125,19 +125,6 @@
 
             carregamapa = function () {
 
-                if (idservico !== undefined) {
-                $http.get('/api/servico/' + idservico)
-                    .success(function (data) {
-                        carregamapadesc(data);
-                    })
-                    .error(function (data) {
-                        console.log("ERR: " + JSON.stringify(data));
-                        $scope.mostraDesc = false;
-                    });
-            } else {
-                $scope.mostraDesc = false;
-            }
-
                 if (!!navigator.geolocation) { 
 
                     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -160,7 +147,19 @@
 
             google.maps.event.addDomListener($window, 'load', carregamapa);
 
-            
+            if (idservico !== undefined) {
+                $http.get('/api/servico/' + idservico)
+                    .success(function (data) {
+                        console.log("data: " + JSON.stringify(data));
+                        carregamapadesc(data);
+                    })
+                    .error(function (data) {
+                        console.log("ERR: " + JSON.stringify(data));
+                        $scope.mostraDesc = false;
+                    });
+            } else {
+                $scope.mostraDesc = false;
+            }
 
             $scope.scrollTo = function (id) {
                 var old = $location.hash();
