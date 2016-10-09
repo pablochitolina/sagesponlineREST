@@ -1,5 +1,4 @@
 ﻿        app.controller('PrincipalCtrl', function (Cidades, $base64, $scope, $window, $location, $anchorScroll, $http, $routeParams) {
-            console.log("PrincipalCtrl");
 
             var idservico = $routeParams.idservico;
 
@@ -21,15 +20,14 @@
             }
 
         var mapOptions = {
-                        zoom: 14,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP,
-                        scrollwheel: false
-                    };
+            zoom: 14,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            scrollwheel: false
+        };
 
             carregamapadesc = function (data) {
 
-                var marker = new google.maps.Marker({});
-                
+                var marker = new google.maps.Marker({});             
 
                 if (!!navigator.geolocation) { 
 
@@ -145,10 +143,9 @@
 
                 }
 
-
             }
 
-            carregamapa();
+            google.maps.event.addDomListener($window, 'load', carregamapa);
 
             if (idservico !== undefined) {
                 $http.get('/api/servico/' + idservico)
@@ -205,6 +202,7 @@
                   enderecoReversoEstado = 'nf';
 
                   var arrAddress = results[0].address_components;
+
                   for (ac = 0; ac < arrAddress.length; ac++) {
                     if (arrAddress[ac].types[0] == "locality") {
                       enderecoReversoCidade = arrAddress[ac].long_name;
@@ -214,11 +212,15 @@
                     } 
                   }
 
+                  console.log("cidade " + enderecoReversoCidade);
+
                   var cidades = JSON.search(Cidades, '//*[Estado="' + enderecoReversoEstado + '"]');
+                  console.log("cidades: " + JSON.stringify(cidades));
                   
                   if (cidades.length > 0) {
 
                     var mun = JSON.search(cidades, '//*[contains(Nome,"' + enderecoReversoCidade + '")]');
+                    console.log("mun: " + JSON.stringify(mun));
 
                     if (mun.length == 1) {
 
