@@ -19,18 +19,15 @@
               $scope.mapSize = document.getElementById('divmap').clientWidth;
             }
 
-          var mapOptions = {
-            zoom: 14,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            scrollwheel: false
-        };
-
-
         carregamapadesc = function (data) {
 
             var marker = new google.maps.Marker({});  
             
-            $scope.mapdesc = new google.maps.Map(document.getElementById('mapdes'), mapOptions);
+            $scope.mapdesc = new google.maps.Map(document.getElementById('mapdes'), {
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            scrollwheel: false
+        });
 
                 if (data && data.message === 'success') {
 
@@ -76,9 +73,8 @@
 
                             var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
                             '<h2 style="color: ' + cor + '">' + status + '</h2> ' +
-                            '<img src="/api/imagem/' + data.servico.filename + '" style=" max-width: ' + $window.innerWidth / 4 + 'px; vertical-align: top" />' +
-                            '<p><strong>' + data.servico.data + '</strong> - ' + data.servico.endereco + '</p>' +
-                            '<p><em>' + data.servico.desc + '</em></p>' +
+                            '<p><h3><em>' + data.servico.desc + '</em></h3></p>' +
+                            '<p style="margin-bottom: 0;"><b>' + data.servico.data + '</b></p><p>' + data.servico.endereco + '</p>' +
                             '</div>';
 
                             $scope.imagem = '/api/imagem/' + data.servico.filename;
@@ -94,7 +90,7 @@
                             });
 
                             var infowindow = new google.maps.InfoWindow({
-                                maxWidth: $window.innerWidth / 2
+                                maxWidth: $window.innerWidth / 3
                             });
 
                             google.maps.event.addListener(marker, 'click', (function (marker, conteudo, infowindow) {
@@ -120,7 +116,11 @@
 
                 carregamapa = function () {
 
-                    $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+                    $scope.map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 13,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            scrollwheel: false
+        });
 
                     navigator.geolocation.getCurrentPosition(function (position) {
 
@@ -300,11 +300,9 @@
                                     }
                                     var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
                                     '<h2 style="color: ' + cor + '">' + status + '</h2> ' +
-                                    '<img src="/api/imagem/' + item.filename + 
-                                    '" style="max-width: ' +  $window.innerWidth / 4 + 'px; vertical-align: top" />' +
-                                    '<p><strong>' + item.data + '</strong> - ' + item.endereco + '</p>' +
-                                    '<p><em>' + item.desc + '</em></p>' +
-                                    '<a style="margin-bottom: 20px;" class="button" href="#/principal/'+ item._id+'/#desc">Descrição</a>' +
+                                    '<p><h3><em>' + item.desc + '</em></h3></p>' +
+                                    '<p style="margin-bottom: 0;"><b>' + item.data + '</b></p><p>' + item.endereco + '</p>' +
+                                    '<a style="margin-bottom: 20px;" class="button" href="#/principal/'+ item._id+'/#desc">Foto</a>' +
                                     '</div>';
 
                                     var infowindow = new google.maps.InfoWindow({
