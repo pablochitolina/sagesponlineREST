@@ -2,22 +2,22 @@
 
             var idservico = $routeParams.idservico;
 
-            $scope.mostraDesc = false;
+            $scope.mostraDesc = true;
 
             $scope.altMapTop = $window.innerHeight/2;
 
             var Cidades = Cidades.all();
 
             $scope.enviado = 'nao';
-            var img = document.getElementById('imagem'); 
-            setWindowSize();
+     
+            setMapSize();
 
-            $window.addEventListener('resize', setWindowSize);
+            //$window.addEventListener('resize', setMapSize);
+            google.maps.event.addDomListener($window, 'resize', setMapSize);
 
-            function setWindowSize() {
-              $scope.mapSize = img.clientWidth;
-
-          }
+            function setMapSize() {
+              $scope.mapSize = document.getElementById('divmap').clientWidth;
+            }
 
           var mapOptions = {
             zoom: 14,
@@ -25,17 +25,17 @@
             scrollwheel: false
         };
 
+
         carregamapadesc = function (data) {
 
-            var marker = new google.maps.Marker({});             
-
-            if (!!navigator.geolocation) { 
-
-                $scope.mapdesc = new google.maps.Map(document.getElementById('mapdesc'), mapOptions); 
+            var marker = new google.maps.Marker({});  
+            
+            $scope.mapdesc = new google.maps.Map(document.getElementById('mapdes'), mapOptions);
 
                 if (data && data.message === 'success') {
 
-                    $scope.mostraDesc = true;
+                    $scope.mapdesc.setCenter(new google.maps.LatLng(data.servico.lat, data.servico.lng));
+
                     var icon = {};
                     var status, cor;
 
@@ -87,15 +87,11 @@
                             $scope.endereco = data.servico.endereco;
                             $scope.cor = cor;
 
-                            var geolocate = new google.maps.LatLng(data.servico.lat, data.servico.lng);
-
                             marker = new google.maps.Marker({
                                 map: $scope.mapdesc,
                                 icon: icon,
-                                position: geolocate
+                                position: new google.maps.LatLng(data.servico.lat, data.servico.lng)
                             });
-
-                            $scope.mapdesc.setCenter(geolocate);
 
                             var infowindow = new google.maps.InfoWindow({
                                 maxWidth: $window.innerWidth / 2
@@ -111,25 +107,18 @@
                         } else {
 
                             navigator.geolocation.getCurrentPosition(function (position) {
-                                var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                                $scope.mapdesc.setCenter(geolocate);
+                                
+                                $scope.mapdesc.setCenter(google.maps.LatLng(position.coords.latitude, position.coords.longitude));
 
                                 $scope.mostraDesc = false;
                             });
                             
                         }
 
-                    } else {
-                        $scope.mostraDesc = false;
-                        document.getElementById('map').innerHTML = 'Sem suporte a Geolocalização.';
-                    }
+                    
                 }
 
                 carregamapa = function () {
-
-                //console.log('carrega mapa');
-
-                if (!!navigator.geolocation) { 
 
                     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
@@ -137,36 +126,43 @@
 
                         var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                         geocodeLatLng(geolocate);
-                        $scope.map.setCenter(geolocate);
+                        
 
                     });
 
-                } else {
+            }
 
+            $scope.$on('$viewContentLoaded', function() {
+              
+                if (!!navigator.geolocation) { 
+                    
+                    carregamapa();
+                    if (idservico !== undefined) {
+
+//console.log('idservico ' + idservico.length);
+
+                        $http.get('/api/servico/' + idservico)
+                        .success(function (data) {
+                                //console.log("data: " + JSON.stringify(data));
+                                carregamapadesc(data);
+                                //carregamapa();
+                            })
+                        .error(function (data) {
+                                //console.log("ERR: " + JSON.stringify(data));
+                                $scope.mostraDesc = false;
+                                //carregamapa();
+                            });
+                    } else {
+                        $scope.mostraDesc = false;
+                        //carregamapa();
+                    }
+                 } else {
+                    $scope.mostraDesc = false;
                     document.getElementById('map').innerHTML = 'Sem suporte a Geolocalização.';
 
                 }
-
-            }
-
-            
-
-            if (idservico !== undefined) {
-                $http.get('/api/servico/' + idservico)
-                .success(function (data) {
-                        //console.log("data: " + JSON.stringify(data));
-                        carregamapadesc(data);
-                        carregamapa();
-                    })
-                .error(function (data) {
-                        //console.log("ERR: " + JSON.stringify(data));
-                        $scope.mostraDesc = false;
-                        carregamapa();
-                    });
-            } else {
-                $scope.mostraDesc = false;
-                carregamapa();
-            }
+    //call it here
+            });
 
             $scope.scrollTo = function (id) {
                 var old = $location.hash();
@@ -237,13 +233,13 @@
                   } 
               }
               
-          } else {
-              console.log('Endereço não encontrado');
-          }
-      } else {
-        console.log('Geocoder falhou por: ' + status);
-    }
-});
+              } else {
+                  console.log('Endereço não encontrado');
+              }
+              } else {
+                console.log('Geocoder falhou por: ' + status);
+            }
+        });
             }
 
             $scope.getPontos = function (cidade) {
@@ -257,6 +253,7 @@
                     if (data.message === 'success') {
 
                             //console.log(JSON.stringify(data));
+                            var geolocale;
 
                             angular.forEach(data.servicos, function (item) {
 
@@ -303,15 +300,18 @@
                                     }
                                     var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
                                     '<h2 style="color: ' + cor + '">' + status + '</h2> ' +
-                                    '<img src="https://www.sagesponline.com.br/api/imagem/' + item.filename + 
+                                    '<img src="/api/imagem/' + item.filename + 
                                     '" style="max-width: ' +  $window.innerWidth / 4 + 'px; vertical-align: top" />' +
                                     '<p><strong>' + item.data + '</strong> - ' + item.endereco + '</p>' +
                                     '<p><em>' + item.desc + '</em></p>' +
+                                    '<a style="margin-bottom: 20px;" class="button" href="#/principal/'+ item._id+'/#desc">Descrição</a>' +
                                     '</div>';
 
                                     var infowindow = new google.maps.InfoWindow({
                                         maxWidth: $window.innerWidth / 2
                                     });
+
+                                    geolocale = new google.maps.LatLng(item.lat, item.lng);
 
                                     marker = new google.maps.Marker({
                                         map: $scope.map,
@@ -327,10 +327,12 @@
                                     })(marker, conteudo, infowindow));
 
                                 });
+                            $scope.map.setCenter(geolocale);
 
-    }
+                            }
 
-})
+
+                        })
         .error(function (data, status, headers, config) {
          
             console.log('erro ao buscar pontos por lat lng');
