@@ -16,6 +16,10 @@
             $scope.mostraCidades = false;
             $scope.noservico = true;
             $scope.procurando = true;
+
+            $scope.contNovo = 0;
+            $scope.contAtend = 0;
+            $scope.contRes = 0;
             
 
             $scope.filtraCidade = function(query){
@@ -153,8 +157,8 @@
                         $scope.procurando = false;
 
                         if(cidade === undefined){
-                        var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                                                geocodeLatLng(geolocate);
+                            var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            geocodeLatLng(geolocate);
                         }else{
                             $scope.getPontos(cidade);
                         }
@@ -165,6 +169,9 @@
             }
 
             $scope.$on('$viewContentLoaded', function() {
+                $scope.contNovo = 0;
+            $scope.contAtend = 0;
+            $scope.contRes = 0;
                cidadeParams = $routeParams.cidadeParams;
                 $scope.procurando = true;
                 loaded = true;
@@ -284,6 +291,10 @@
             }
 
             $scope.getPontos = function (cidade) {
+
+                $scope.contNovo = 0;
+                $scope.contAtend = 0;
+                $scope.contRes = 0;
                 
                 cidadeParams = cidade;
 
@@ -375,7 +386,7 @@
                             
 
                             }else{
-                                
+
                             $scope.noservico = true;
                      
                             if(loaded){

@@ -58,20 +58,62 @@
 			<input placeholder="Procurar serviços por cidade..." type="text" id="query" ng-model="procura.query" ng-change="filtraCidade(procura.query)"/>
 				<ul style="position: absolute; z-index: 999;" ng-show="mostraCidades" class="ulsearch" id="notebook_ul">
 			    <li ng-click="getCidade(cidade.ID)" class="lisearch" ng-repeat="cidade in cidades">
-			      Nome: {{cidade.Nome}} / {{cidade.Estado}}
+			      {{cidade.Nome}} / {{cidade.Estado}}
 			    </li>
 			  </ul>
 		</div>
 
 		<div class="8u 12u$(mobile)">
-							<strong style="color: #ffa700; vertical-align: middle;" ng-show="noservico && !procurando">Nenhum serviço encontrado para esta localização</strong>
-							<strong style="color: #008744; vertical-align: middle;" ng-show="!noservico && !procurando">Mostrando serviços encontrados</strong>
-							<strong style="color: #d62d20; vertical-align: middle;" ng-show="procurando">Procurando sua localização...</strong>
-						</div>
+			<strong style="color: #ffa700; vertical-align: middle;" ng-show="noservico && !procurando">Nenhum serviço encontrado para esta localização</strong>
+			<strong style="color: #008744; vertical-align: middle;" ng-show="!noservico && !procurando">Mostrando serviços encontrados</strong>
+			<strong style="color: #d62d20; vertical-align: middle;" ng-show="procurando">Procurando sua localização...</strong>
+		</div>
 
 
 	</div>
-	
+
+	<!--<div class="row">
+		<div style="text-align: right;" class="1u 6u$(mobile)">
+                <img style="max-width: 21px;" src="img/pinred.png" />
+		</div>
+		<div class="3u 6u$(mobile)">
+                <p>Novos: {{contNovo}}</p>
+		</div>
+		<div style="text-align: right;" class="1u 6u$(mobile)">
+                <img style="max-width: 21px;" src="img/pinyellow.png" />
+		</div>
+		<div class="3u 6u$(mobile)">
+                <p>Atendidos: {{contAtend}}</p>
+		</div>
+		<div style="text-align: right;" class="1u 6u$(mobile)">
+                <img style="max-width: 21px;" src="img/pingreen.png" />
+		</div>
+		<div class="3u 6u$(mobile)">
+                <p>Resolvidos: {{contRes}}</p>
+		</div>
+	</div>-->
+
+	<div class="row" style="margin: 0;">
+		<div  class="4u 12u$(mobile)">
+			<div class="row item" style="display: flex; align-items: center; padding: 10px;">
+				 <img style="max-width: 40px; padding: 0; margin-left: 10px;" src="img/pinred.png" />
+				 <p style="margin: 0 0 0 10px; padding: 0;">Novos: {{contNovo}}</p>
+			</div>
+		</div>
+		<div  class="4u 12u$(mobile)">
+			<div class="row item" style="display: flex; align-items: center; padding: 10px;">
+				 <img style="max-width: 40px; padding: 0; margin-left: 10px;" src="img/pinyellow.png" />
+				 <p style="margin: 0 0 0 10px; padding: 0;">Atendidos: {{contAtend}}</p>
+			</div>
+		</div>
+		<div  class="4u 12u$(mobile)">
+			<div class="row item" style="display: flex; align-items: center; padding: 10px;">
+				 <img style="max-width: 40px; padding: 0; margin-left: 10px;" src="img/pingreen.png" />
+				 <p style="margin: 0 0 0 10px; padding: 0;">Resolvidos: {{contRes}}</p>
+			</div>
+		</div>
+
+	</div>
 
 	<!-- Intro -->
 		<section id="mapa" class="one" style="position: relative; min-height: 400px" >
