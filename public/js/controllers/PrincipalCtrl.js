@@ -1,6 +1,7 @@
 ﻿        app.controller('PrincipalCtrl', function (Cidades, $base64, $scope, $window, $location, $anchorScroll, $http, $routeParams) {
 
             var idservico = $routeParams.idservico;
+            var cidadeParams = $routeParams.cidadeParams;
 
             $scope.mostraDesc = true;
 
@@ -137,7 +138,7 @@
                     
                 }
 
-                carregamapa = function () {
+                carregamapa = function (cidade) {
 
                     $scope.map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 13,
@@ -149,19 +150,27 @@
                     navigator.geolocation.getCurrentPosition(function (position) {
                         $scope.procurando = false;
 
+                        if(cidade === undefined){
                         var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                        geocodeLatLng(geolocate);
+                                                geocodeLatLng(geolocate);
+                        }else{
+                            $scope.getPontos(cidade);
+                        }
+                        
                         
                     });
 
             }
 
             $scope.$on('$viewContentLoaded', function() {
+               cidadeParams = $routeParams.cidadeParams;
                 $scope.procurando = true;
               
                 if (!!navigator.geolocation) { 
                     
-                    carregamapa();
+                    carregamapa(cidadeParams);
+                       
+
                     if (idservico !== undefined) {
 
 //console.log('idservico ' + idservico.length);
@@ -269,7 +278,8 @@
 
             $scope.getPontos = function (cidade) {
                 
-
+                cidadeParams = cidade;
+                
                 $http.defaults.headers.common["Content-Type"] = 'application/json';
                 $http.defaults.headers.common["cidade"] = cidade;
 
@@ -329,7 +339,7 @@
                                     '<h2 style="color: ' + cor + '">' + status + '</h2> ' +
                                     '<p><h3><em>' + item.desc + '</em></h3></p>' +
                                     '<p style="margin-bottom: 0;"><b>' + item.data + '</b></p><p>' + item.endereco + '</p>' +
-                                    '<a style="margin-bottom: 20px;" class="button" href="#/principal/'+ item._id+'/#desc">Foto</a>' +
+                                    '<a style="margin-bottom: 20px;" class="button" href="#/principal/'+ item._id+'/'+cidadeParams+'#desc">Foto</a>' +
                                     '</div>';
 
                                     var infowindow = new google.maps.InfoWindow({

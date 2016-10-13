@@ -17,6 +17,10 @@ app.config(function($routeProvider) {
       templateUrl: '/templates/principal.html', 
       controller: 'PrincipalCtrl'
     })
+    .when('/principal/:idservico/:cidadeParams', {
+      templateUrl: '/templates/principal.html', 
+      controller: 'PrincipalCtrl'
+    })
     .when('/principal', {
       templateUrl: '/templates/principal.html', 
       controller: 'PrincipalCtrl'
