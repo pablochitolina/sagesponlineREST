@@ -264,7 +264,11 @@
 
                       $scope.getPontos(mun[0].ID);
 
-                  } 
+                  } else{
+                    $scope.getPontos(999999);
+                  }
+              }else{
+                $scope.getPontos(999999);
               }
               
               } else {
@@ -370,7 +374,8 @@
                             }
                         if (data.message === 'noservico') {
                             $scope.noservico = true;
-                            carregamapa(undefined);
+                            var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            $scope.map.setCenter(geolocate);
                             
                         }
 
