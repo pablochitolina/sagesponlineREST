@@ -52,21 +52,21 @@
 	</div>
 
 	<!-- Main <div id="map" style="height: 100%; position: absolute; top: 0; bottom: -200px; left: 0; right: 0; z-index: 0;" ></div> -->
-	<div id="main" ng-init="mostraCidades = false">
+	<div id="main">
 	<div class="row">
 		<div class="4u 12u$(mobile)">
-			<input placeholder="Procurar serviços por cidade..." type="text" id="query" ng-model="query" ng-focus="mostraCidades = true"/>
-				<ul style="position: absolute; z-index: 999;" ng-show="mostraCidades && query.length >= 3" class="ulsearch" id="notebook_ul">
-			    <li ng-click="getCidade(cidade.ID)" class="lisearch" ng-repeat="cidade in cidades | filter:query | orderBy: 'Nome'">
+			<input placeholder="Procurar serviços por cidade..." type="text" id="query" ng-model="procura.query" ng-change="filtraCidade(procura.query)"/>
+				<ul style="position: absolute; z-index: 999;" ng-show="mostraCidades" class="ulsearch" id="notebook_ul">
+			    <li ng-click="getCidade(cidade.ID)" class="lisearch" ng-repeat="cidade in cidades">
 			      Nome: {{cidade.Nome}} / {{cidade.Estado}}
 			    </li>
 			  </ul>
 		</div>
 
 		<div class="8u 12u$(mobile)">
-							<strong style="color: #ffa700" ng-show="noservico">Nenhum serviço encontrado para esta cidade</strong>
-							<strong style="color: #008744" ng-show="!noservico">Mostrando serviços encontrados</strong>
-							<strong style="color: #d62d20" ng-show="procurando">Procurando sua localização...</strong>
+							<strong style="color: #ffa700; vertical-align: middle;" ng-show="noservico">Nenhum serviço encontrado para esta cidade</strong>
+							<strong style="color: #008744; vertical-align: middle;" ng-show="!noservico">Mostrando serviços encontrados</strong>
+							<strong style="color: #d62d20; vertical-align: middle;" ng-show="procurando">Procurando sua localização...</strong>
 						</div>
 
 

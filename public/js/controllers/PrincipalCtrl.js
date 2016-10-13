@@ -12,8 +12,19 @@
      
             setMapSize();
             $scope.noservico = true;
+            $scope.mostraCidades = false;
 
-            $scope.cidades = Cidades;
+            $scope.filtraCidade = function(query){
+
+                if(query.length >= 3){
+                    $scope.mostraCidades = true;
+                    $scope.cidades = JSON.search(Cidades, '//*[contains(Nome,"' + query + '")]');
+                }else{
+                    $scope.cidades = {};
+                    $scope.mostraCidades = false;
+                }
+                
+            }  
 
             $scope.procurando = true;
 
@@ -35,6 +46,7 @@
             $scope.mapdesc = new google.maps.Map(document.getElementById('mapdes'), {
             zoom: 17,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
+            //draggable: !("ontouchend" in document),
             scrollwheel: false
         });
 
@@ -128,6 +140,7 @@
                     $scope.map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 13,
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    //draggable: !("ontouchend" in document),
                     scrollwheel: false
                 });
 
@@ -136,7 +149,6 @@
                         var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                         geocodeLatLng(geolocate);
                         
-
                     });
 
             }
