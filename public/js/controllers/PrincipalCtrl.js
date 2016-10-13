@@ -11,8 +11,9 @@
             $scope.enviado = 'nao';
      
             setMapSize();
-            $scope.noservico = true;
             $scope.mostraCidades = false;
+            $scope.noservico = true;
+            
 
             $scope.filtraCidade = function(query){
 
