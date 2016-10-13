@@ -279,7 +279,7 @@
             $scope.getPontos = function (cidade) {
                 
                 cidadeParams = cidade;
-                
+
                 $http.defaults.headers.common["Content-Type"] = 'application/json';
                 $http.defaults.headers.common["cidade"] = cidade;
 
@@ -370,6 +370,13 @@
                             }
                         if (data.message === 'noservico') {
                             $scope.noservico = true;
+                            navigator.geolocation.getCurrentPosition(function (position) {
+
+                                var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                                $scope.map.setCenter(geolocale);
+                                
+                            });
+                            
                         }
 
                         })
