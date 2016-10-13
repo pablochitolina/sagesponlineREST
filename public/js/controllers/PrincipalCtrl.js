@@ -11,12 +11,19 @@
             $scope.enviado = 'nao';
      
             setMapSize();
+            $scope.noservico = true;
+
+            $scope.cidades = Cidades;
 
             //$window.addEventListener('resize', setMapSize);
             google.maps.event.addDomListener($window, 'resize', setMapSize);
 
             function setMapSize() {
               $scope.mapSize = document.getElementById('divmap').clientWidth;
+            }
+            $scope.getCidade = function(id){
+                $scope.mostraCidades = false;
+                $scope.getPontos(id);
             }
 
         carregamapadesc = function (data) {
@@ -71,7 +78,7 @@
                                 icon = 'img/pinred.png';
                             }
 
-                            var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
+                            var conteudo = '<div class="googft-info-window" style="line-height: 1.35; overflow: hidden; font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
                             '<h2 style="color: ' + cor + '">' + status + '</h2> ' +
                             '<p><h3><em>' + data.servico.desc + '</em></h3></p>' +
                             '<p style="margin-bottom: 0;"><b>' + data.servico.data + '</b></p><p>' + data.servico.endereco + '</p>' +
@@ -243,6 +250,7 @@
             }
 
             $scope.getPontos = function (cidade) {
+                
 
                 $http.defaults.headers.common["Content-Type"] = 'application/json';
                 $http.defaults.headers.common["cidade"] = cidade;
@@ -251,12 +259,13 @@
                 .success(function (data, status, headers, config) {
                     
                     if (data.message === 'success') {
+                        $scope.noservico = false;
 
                             //console.log(JSON.stringify(data));
                             var geolocale;
 
                             angular.forEach(data.servicos, function (item) {
-
+                     
                                 //console.log(item);
                                 var icon = {};
                                 var status, cor;
@@ -298,7 +307,7 @@
                                         default:
                                         icon = 'img/pinred.png';
                                     }
-                                    var conteudo = '<div class="googft-info-window" style="font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
+                                    var conteudo = '<div class="googft-info-window" style="line-height: 1.35; overflow: hidden; font-family: sans-serif;  height: 20em; overflow-y: auto;">' +
                                     '<h2 style="color: ' + cor + '">' + status + '</h2> ' +
                                     '<p><h3><em>' + item.desc + '</em></h3></p>' +
                                     '<p style="margin-bottom: 0;"><b>' + item.data + '</b></p><p>' + item.endereco + '</p>' +
@@ -325,10 +334,15 @@
                                     })(marker, conteudo, infowindow));
 
                                 });
-                            $scope.map.setCenter(geolocale);
+  
+                                $scope.map.setCenter(geolocale);
+               
+                            
 
                             }
-
+                        if (data.message === 'noservico') {
+                            $scope.noservico = true;
+                        }
 
                         })
         .error(function (data, status, headers, config) {
