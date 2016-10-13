@@ -13,6 +13,7 @@
             setMapSize();
             $scope.mostraCidades = false;
             $scope.noservico = true;
+            $scope.procurando = true;
             
 
             $scope.filtraCidade = function(query){
@@ -27,7 +28,7 @@
                 
             }  
 
-            $scope.procurando = true;
+            
 
             //$window.addEventListener('resize', setMapSize);
             google.maps.event.addDomListener($window, 'resize', setMapSize);
@@ -146,6 +147,7 @@
                 });
 
                     navigator.geolocation.getCurrentPosition(function (position) {
+                        $scope.procurando = false;
 
                         var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                         geocodeLatLng(geolocate);
@@ -158,7 +160,6 @@
                 $scope.procurando = true;
               
                 if (!!navigator.geolocation) { 
-                    $scope.procurando = false;
                     
                     carregamapa();
                     if (idservico !== undefined) {
