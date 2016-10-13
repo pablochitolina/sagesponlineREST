@@ -374,7 +374,7 @@
                             }
                         if (data.message === 'noservico') {
                             $scope.noservico = true;
-                            $window.alert(Nenhum serviço encontrado para esta localização);
+                            $window.alert("Nenhum serviço encontrado para esta localização");
 
                             navigator.geolocation.getCurrentPosition(function (position) {
                                 var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
