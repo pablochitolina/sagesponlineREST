@@ -370,12 +370,7 @@
                             }
                         if (data.message === 'noservico') {
                             $scope.noservico = true;
-                            navigator.geolocation.getCurrentPosition(function (position) {
-
-                                var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                                $scope.map.setCenter(geolocate);
-                                
-                            });
+                            carregamapa(undefined);
                             
                         }
 
