@@ -1719,6 +1719,11 @@
 		.image.fit {
 			display: block;
 			width: 100%;
+			border: 1px solid #333 !important;
+			  -webkit-box-shadow: 0 0 5px #888 !important;
+			  -moz-box-shadow: 0 0 5px #888 !important;
+			  box-shadow: 0 0 5px #888 !important;
+			  border-radius: 5px;
 		}
 
 		.image.featured {
