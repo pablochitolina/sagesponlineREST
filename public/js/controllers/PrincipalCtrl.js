@@ -374,8 +374,15 @@
                             }
                         if (data.message === 'noservico') {
                             $scope.noservico = true;
-                            var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            $window.alert(Nenhum serviço encontrado para esta localização);
+
+                            navigator.geolocation.getCurrentPosition(function (position) {
+                                var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                             $scope.map.setCenter(geolocate);
+                                
+                                
+                            });
+                            
                             
                         }
 
