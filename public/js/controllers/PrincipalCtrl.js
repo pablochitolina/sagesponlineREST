@@ -1,4 +1,4 @@
-﻿        app.controller('PrincipalCtrl', function (Cidades, $base64, $scope, $window, $location, $anchorScroll, $http, $routeParams) {
+﻿app.controller('PrincipalCtrl', function (Cidades, $base64, $scope, $window, $location, $anchorScroll, $http, $routeParams) {
 
             var idservico = $routeParams.idservico;
             var cidadeParams = $routeParams.cidadeParams;
@@ -10,6 +10,7 @@
             var Cidades = Cidades.all();
 
             $scope.enviado = 'nao';
+            loaded = true;
      
             setMapSize();
             $scope.mostraCidades = false;
@@ -39,6 +40,7 @@
             }
             $scope.getCidade = function(id){
                 $scope.mostraCidades = false;
+                loaded = false;
                 $scope.getPontos(id);
             }
 
@@ -165,6 +167,7 @@
             $scope.$on('$viewContentLoaded', function() {
                cidadeParams = $routeParams.cidadeParams;
                 $scope.procurando = true;
+                loaded = true;
               
                 if (!!navigator.geolocation) { 
                     
@@ -371,17 +374,18 @@
                
                             
 
-                            }
-                        if (data.message === 'noservico') {
+                            }else{
+                                
                             $scope.noservico = true;
-                            $window.alert("Nenhum serviço encontrado para esta localização");
-
-                            navigator.geolocation.getCurrentPosition(function (position) {
-                                var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                            $scope.map.setCenter(geolocate);
-                                
-                                
-                            });
+                     
+                            if(loaded){
+                                navigator.geolocation.getCurrentPosition(function (position) {
+                                    var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                                    $scope.map.setCenter(geolocate);
+                                    
+                                    
+                                });
+                            }
                             
                             
                         }
