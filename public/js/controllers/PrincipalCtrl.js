@@ -15,6 +15,8 @@
 
             $scope.cidades = Cidades;
 
+            $scope.procurando = true;
+
             //$window.addEventListener('resize', setMapSize);
             google.maps.event.addDomListener($window, 'resize', setMapSize);
 
@@ -124,10 +126,10 @@
                 carregamapa = function () {
 
                     $scope.map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 13,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            scrollwheel: false
-        });
+                    zoom: 13,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    scrollwheel: false
+                });
 
                     navigator.geolocation.getCurrentPosition(function (position) {
 
@@ -140,8 +142,10 @@
             }
 
             $scope.$on('$viewContentLoaded', function() {
+                $scope.procurando = true;
               
                 if (!!navigator.geolocation) { 
+                    $scope.procurando = false;
                     
                     carregamapa();
                     if (idservico !== undefined) {
