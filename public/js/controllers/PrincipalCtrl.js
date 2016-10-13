@@ -373,7 +373,7 @@
                             navigator.geolocation.getCurrentPosition(function (position) {
 
                                 var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                                $scope.map.setCenter(geolocale);
+                                $scope.map.setCenter(geolocate);
                                 
                             });
                             
