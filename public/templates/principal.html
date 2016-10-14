@@ -53,7 +53,10 @@
 
 	<!-- Main <div id="map" style="height: 100%; position: absolute; top: 0; bottom: -200px; left: 0; right: 0; z-index: 0;" ></div> -->
 	<div id="main">
-	<div class="row">
+
+	<div id="mapa" style="padding: 0;" >
+
+			<div class="row">
 		<div class="4u 12u$(mobile)">
 			<input placeholder="Procurar serviços por cidade..." type="text" id="query" ng-model="procura.query" ng-change="filtraCidade(procura.query)"/>
 				<ul style="position: absolute; z-index: 999;" ng-show="mostraCidades" class="ulsearch" id="notebook_ul">
@@ -71,27 +74,6 @@
 
 
 	</div>
-
-	<!--<div class="row">
-		<div style="text-align: right;" class="1u 6u$(mobile)">
-                <img style="max-width: 21px;" src="img/pinred.png" />
-		</div>
-		<div class="3u 6u$(mobile)">
-                <p>Novos: {{contNovo}}</p>
-		</div>
-		<div style="text-align: right;" class="1u 6u$(mobile)">
-                <img style="max-width: 21px;" src="img/pinyellow.png" />
-		</div>
-		<div class="3u 6u$(mobile)">
-                <p>Atendidos: {{contAtend}}</p>
-		</div>
-		<div style="text-align: right;" class="1u 6u$(mobile)">
-                <img style="max-width: 21px;" src="img/pingreen.png" />
-		</div>
-		<div class="3u 6u$(mobile)">
-                <p>Resolvidos: {{contRes}}</p>
-		</div>
-	</div>-->
 
 	<div class="row" style="margin: 0;">
 		<div  class="4u 12u$(mobile)">
@@ -115,15 +97,18 @@
 
 	</div>
 
+		</div>
+	
+
 	<!-- Intro -->
-		<section id="mapa" class="one" style="position: relative; min-height: 400px" >
+		<section class="two" style="position: relative; min-height: 400px" >
 
 			<div id="map" class="mapa"></div>
 
 		</section>
 
 
-		<section id="desc" ng-show="mostraDesc" class="two">
+		<section id="desc" ng-show="mostraDesc" class="three">
 			<div class="container">
 
 				
@@ -173,7 +158,7 @@
 		</section>
 
 
-		<section id="como" class="three">
+		<section id="como" class="four">
 		
 			<div class="container">
 <header>
@@ -209,7 +194,7 @@
 
 
 		<!-- Contact -->
-		<section id="contact" class="four">
+		<section id="contact" class="five">
 			<div class="container">
 
 				<header>
