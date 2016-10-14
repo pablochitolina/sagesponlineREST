@@ -3,6 +3,8 @@
             var idservico = $routeParams.idservico;
             var cidadeParams = $routeParams.cidadeParams;
 
+            $scope.cidadeChamados = '';
+
             $scope.mostraDesc = true;
 
             $scope.altMapTop = $window.innerHeight/2;
@@ -42,10 +44,11 @@
             function setMapSize() {
               $scope.mapSize = document.getElementById('divmap').clientWidth;
             }
-            $scope.getCidade = function(id){
+            $scope.getCidade = function(cidade){
                 $scope.mostraCidades = false;
                 loaded = false;
-                $scope.getPontos(id);
+                $scope.cidadeChamados = ' em ' + cidade.Nome + ' / ' + cidade.Estado;
+                $scope.getPontos(cidade.ID);
             }
 
         carregamapadesc = function (data) {
@@ -160,6 +163,9 @@
                             var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                             geocodeLatLng(geolocate);
                         }else{
+                            var cidadeDado = JSON.search(Cidades, '//*[ID="' + cidade + '"]');
+
+                            $scope.cidadeChamados = ' em ' + cidadeDado[0].Nome + ' / ' + cidadeDado[0].Estado;
                             $scope.getPontos(cidade);
                         }
                         
@@ -260,6 +266,8 @@
                       } 
                   }
 
+                  $scope.cidadeChamados = ' em ' + enderecoReversoCidade + ' / ' + enderecoReversoEstado;
+
                   //console.log("cidade " + enderecoReversoCidade);
 
                   var cidades = JSON.search(Cidades, '//*[Estado="' + enderecoReversoEstado + '"]');
@@ -295,6 +303,8 @@
                 $scope.contNovo = 0;
                 $scope.contAtend = 0;
                 $scope.contRes = 0;
+
+                
                 
                 cidadeParams = cidade;
 
