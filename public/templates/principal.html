@@ -57,15 +57,7 @@
 	<div id="mapa" style="padding: 0;" >
 
 			<div class="row">
-		<div class="4u 12u$(mobile)">
-			<input placeholder="Procurar serviços por cidade..." type="text" id="query" ng-model="procura.query" ng-change="filtraCidade(procura.query)"/>
-				<ul style="position: absolute; z-index: 999;" ng-show="mostraCidades" class="ulsearch" id="notebook_ul">
-			    <li ng-click="getCidade(cidade.ID)" class="lisearch" ng-repeat="cidade in cidades">
-			      {{cidade.Nome}} / {{cidade.Estado}}
-			    </li>
-			  </ul>
-		</div>
-
+	
 		<div class="8u 12u$(mobile)">
 			<strong style="color: #ffa700; vertical-align: middle;" ng-show="noservico && !procurando">Nenhum serviço encontrado para esta localização</strong>
 			<strong style="color: #008744; vertical-align: middle;" ng-show="!noservico && !procurando">Mostrando serviços encontrados</strong>
@@ -75,35 +67,55 @@
 
 	</div>
 
-	<div class="row" style="margin: 0;">
-		<div  class="4u 12u$(mobile)">
-			<div class="row item" style="display: flex; align-items: center; padding: 10px;">
-				 <img style="max-width: 25px; padding: 0; margin-left: 10px;" src="img/pinred.png" />
-				 <p style="margin: 0 0 0 10px; padding: 0;">Novos: {{contNovo}}</p>
-			</div>
-		</div>
-		<div  class="4u 12u$(mobile)">
-			<div class="row item" style="display: flex; align-items: center; padding: 10px;">
-				 <img style="max-width: 25px; padding: 0; margin-left: 10px;" src="img/pinyellow.png" />
-				 <p style="margin: 0 0 0 10px; padding: 0;">Atendidos: {{contAtend}}</p>
-			</div>
-		</div>
-		<div  class="4u 12u$(mobile)">
-			<div class="row item" style="display: flex; align-items: center; padding: 10px;">
-				 <img style="max-width: 25px; padding: 0; margin-left: 10px;" src="img/pingreen.png" />
-				 <p style="margin: 0 0 0 10px; padding: 0;">Resolvidos: {{contRes}}</p>
-			</div>
-		</div>
-
-	</div>
+	
 
 		</div>
 	
 
 	<!-- Intro -->
-		<section class="two" style="position: relative; min-height: 400px" >
+		<section style= "padding: 10px;"class="two" >
+			<div class="row" style="margin: 0;">
+			<div class="3u 12u$(mobile)">
 
-			<div id="map" class="mapa"></div>
+					<div  class="12u 12u$(mobile)">
+								
+								<div class="row item" style="display: flex; align-items: center; padding: 10px; ">
+									 <input style="margin: 0;" placeholder="Procurar serviços por cidade..." type="text" id="query" ng-model="procura.query" ng-change="filtraCidade(procura.query)"/>
+								</div>
+									<ul style="position: absolute; z-index: 999;" ng-show="mostraCidades" class="ulsearch" id="notebook_ul">
+								    <li ng-click="getCidade(cidade.ID)" class="lisearch" ng-repeat="cidade in cidades">
+								      {{cidade.Nome}} / {{cidade.Estado}}
+								    </li>
+								  </ul>
+							</div>
+						
+							<div  class="12u 12u$(mobile)">
+								<div class="row item" style="display: flex; align-items: center; padding: 10px;">
+									 <img style="max-width: 25px; padding: 0; margin-left: 10px;" src="img/pinred.png" />
+									 <p style="margin: 0 0 0 10px; padding: 0;">Novos: {{contNovo}}</p>
+								</div>
+							</div>
+							<div  class="12u 12u$(mobile)">
+								<div class="row item" style="display: flex; align-items: center; padding: 10px;">
+									 <img style="max-width: 25px; padding: 0; margin-left: 10px;" src="img/pinyellow.png" />
+									 <p style="margin: 0 0 0 10px; padding: 0;">Atendidos: {{contAtend}}</p>
+								</div>
+							</div>
+							<div  class="12u 12u$(mobile)">
+								<div class="row item" style="display: flex; align-items: center; padding: 10px;">
+									 <img style="max-width: 25px; padding: 0; margin-left: 10px;" src="img/pingreen.png" />
+									 <p style="margin: 0 0 0 10px; padding: 0;">Resolvidos: {{contRes}}</p>
+								</div>
+							</div>
+							
+
+						
+					</div>
+					<div class="9u 12u$(mobile)"  style="position: relative; min-height: 400px">
+						<div id="map" class="mapa"></div>
+					</div>
+
+			</div>
 
 		</section>
 
