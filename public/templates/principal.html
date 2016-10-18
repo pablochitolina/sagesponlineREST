@@ -242,13 +242,14 @@
 		                    <span ng-show="contato.message.$error.maxlength" style="color: #d62d20">Mensagem muito longa (Max. 1000).</span>
 						</div>
 						<div class="12u$">
-							<input type="submit" value="Enviar mensagem" />
-						</div>
-						<div class="12u$">
 							<strong style="color: #008744" ng-show="enviado === 'sim'">Mensagem enviada com sucesso!</strong>
 							<strong style="color: #d62d20" ng-show="enviado === 'erro'">Erro ao enviar mensagem!</strong>
 							<strong style="color: #d62d20" ng-show="enviado === 'inv'">Erro no formulário!</strong>
 						</div>
+						<div class="12u$">
+							<input type="submit" value="Enviar mensagem" />
+						</div>
+						
 
 					</div>
 					

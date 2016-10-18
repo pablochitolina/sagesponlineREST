@@ -227,7 +227,7 @@
                 $scope.enviado = 'nao';
                 if(valid){
                     $http.post('/api/postmessage/',{
-                        name: $scope.data.name,
+                        name: $scope.data.nome,
                         email: $scope.data.email,
                         message: $scope.data.message})
                     .success(function (data) {
